@@ -1,0 +1,155 @@
+<div class="row card other-card">
+    <div class="col-12">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-delivery-package-heading" class="header-page"><i class="mdi mdi-cube icon-lg icon"></i>Ajouter ou modifier Colis XXX</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="row" >
+                    <div class="col-lg-6 col-md-12">
+                        <h5>Détails Colis</h5>
+                        <hr>
+                        <div class="form-group" [hidden]="!deliveryPackage.id">
+                            <label for="id">ID</label>
+                            <input type="text" class="form-control" id="id" name="id"
+                                   [(ngModel)]="deliveryPackage.id" readonly />
+                        </div>
+                        <div class="form-group" *ngIf="!deliveryPackage.id">
+                            <label for="id">Code</label>
+                            <input type="text" class="form-control" id="code" name="code" required
+                                   [(ngModel)]="deliveryPackage.code"  />
+                        </div>
+                        <div *ngIf="deliveryPackage.id" class="form-group">
+                            <label class="form-control-label" for="field_status">Status</label>
+                            <select class="form-control" name="status" [(ngModel)]="deliveryPackage.status" id="field_status" >
+                                <option value="NEW">NEW</option>
+                                <option value="TO_DELIVER">TO_DELIVER</option>
+                                <option value="PICKED">PICKED</option>
+                                <option value="DELIVERED">DELIVERED</option>
+                                <option value="REFUSED">REFUSED</option>
+                                <option value="NA">NA</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_fragility">Fragilité</label>
+                            <select required class="form-control" name="fragility" [(ngModel)]="deliveryPackage.fragility" id="field_fragility" >
+                                <option value="FRAGILE">FRAGILE</option>
+                                <option value="NOT_FRAGILE">NOT_FRAGILE</option>
+                            </select>
+                        </div>
+
+                        <div *ngIf="deliveryPackage.id" class="form-group">
+                            <label class="form-control-label" for="field_creationDate">Date Création</label>
+                            <div class="d-flex">
+                                <input id="field_creationDate" readonly type="datetime-local" class="form-control" name="creationDate" [(ngModel)]="creationDate" placeholder="YYYY-MM-DD HH:mm"
+                                />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_height">Hauteur</label>
+                            <input type="number" class="form-control" name="height" id="field_height"
+                                   [(ngModel)]="deliveryPackage.height" />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_width">Largeur</label>
+                            <input type="number" class="form-control" name="width" id="field_width"
+                                   [(ngModel)]="deliveryPackage.width" />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_weight">Poid</label>
+                            <input type="number" class="form-control" name="weight" id="field_weight"
+                                   [(ngModel)]="deliveryPackage.weight" />
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-6 col-md-12">
+                        <h5>Destinataire</h5>
+                        <hr>
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_receiverFirstName">Destinataire Prénom</label>
+                            <input type="text" class="form-control" required name="receiverFirstName" id="field_receiverFirstName"
+                                   [(ngModel)]="deliveryPackage.receiverFirstName" />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_receiverLastName">Destinataire Nom</label>
+                            <input type="text" class="form-control" required name="receiverLastName" id="field_receiverLastName"
+                                   [(ngModel)]="deliveryPackage.receiverLastName" />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_receiverPhone">Destinataire Téléphone</label>
+                            <input type="number" class="form-control" name="receiverPhone" id="field_receiverPhone"
+                                   [(ngModel)]="deliveryPackage.receiverPhone" required/>
+                            <div [hidden]="!(editForm.controls.receiverPhone?.dirty && editForm.controls.receiverPhone?.invalid)">
+                                <small class="form-text text-danger"
+                                       [hidden]="!editForm.controls.receiverPhone?.errors?.required">
+                                    Ce champ est requis.
+                                </small>
+                                <small class="form-text text-danger"
+                                       [hidden]="!editForm.controls.receiverPhone?.errors?.number">
+                                    Ce champ devrait être un nombre.
+                                </small>
+                            </div>
+                        </div>
+
+                        <h5>Adresse de livraison</h5>
+
+                        <hr>
+
+
+                        <div class="form-group">
+                            <label class="form-controldelivery-package/new-label" for="field_line1">Ligne 1</label>
+                            <input type="text" class="form-control" name="line1" id="field_line1"
+                                   [(ngModel)]="deliveryPackage.address.line1" required/>
+                            <div [hidden]="!(editForm.controls.line1?.dirty && editForm.controls.line1?.invalid)">
+                                <small class="form-text text-danger"
+                                       [hidden]="!editForm.controls.line1?.errors?.required">
+                                    Ce champ est requis.
+                                </small>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_line2">Ligne 2</label>
+                            <input type="text" class="form-control" name="line2" id="field_line2"
+                                   [(ngModel)]="deliveryPackage.address.line2"/>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_city">Cité</label>
+                            <input type="text" class="form-control" name="city" id="field_city"
+                                   [(ngModel)]="deliveryPackage.address.city" required/>
+                            <div [hidden]="!(editForm.controls.city?.dirty && editForm.controls.city?.invalid)">
+                                <small class="form-text text-danger"
+                                       [hidden]="!editForm.controls.city?.errors?.required">
+                                    Ce champ est requis.
+                                </small>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_postalCode">Code postale</label>
+                            <input type="text" class="form-control" name="postalCode" id="field_postalCode"
+                                   [(ngModel)]="deliveryPackage.address.postalCode" required/>
+                            <div
+                                [hidden]="!(editForm.controls.postalCode?.dirty && editForm.controls.postalCode?.invalid)">
+                                <small class="form-text text-danger"
+                                       [hidden]="!editForm.controls.postalCode?.errors?.required">
+                                    This field is required.
+                                </small>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Annuler</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Enregistrer</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity RunSheet.
+    -->
+    <changeSet id="20190217163212-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="delivery_man_id"
+                                 baseTableName="run_sheet"
+                                 constraintName="fk_run_sheet_delivery_man_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="delivery_man"/>
+
+    </changeSet>
+</databaseChangeLog>

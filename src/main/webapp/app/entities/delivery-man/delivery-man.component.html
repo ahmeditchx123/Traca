@@ -1,0 +1,70 @@
+<div class="card other-card">
+
+    <h2 id="page-heading" class="page-heading">
+        <i class="mdi mdi-truck icon-lg icon"></i><span>Gestion Livreur</span>
+        <button class="btn btn-outline-dark float-right jh-create-entity create-delivery-man" [routerLink]="['/delivery-man/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Nouveau Livreur
+            </span>
+        </button>
+    </h2>
+    <br/>
+    <div class="table-responsive" *ngIf="deliveryMen">
+        <table class="table table-hover">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="code"><span>Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="firstName"><span>Prénom</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="lastName"><span>Nom</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="firstPhone"><span>Tel 1</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="hireDate"><span>Date Embauche</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let deliveryMan of deliveryMen ;trackBy: trackId">
+                <td><a [routerLink]="['/delivery-man', deliveryMan.id, 'view' ]">{{deliveryMan.id}}</a></td>
+                <td>{{deliveryMan.code}}</td>
+                <td>{{deliveryMan.firstName}}</td>
+                <td>{{deliveryMan.lastName}}</td>
+                <td>{{deliveryMan.firstPhone}}</td>
+                <td>{{deliveryMan.hireDate | date:'dd-MM-yyyy'}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/delivery-man', deliveryMan.id, 'view' ]"
+                                class="btn btn-outline-light btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">Voir</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/delivery-man', deliveryMan.id, 'edit']"
+                                class="btn btn-outline-warning btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Éditer</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'delivery-man', { outlets: { popup: deliveryMan.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-outline-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Effacer</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="deliveryMen && deliveryMen.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

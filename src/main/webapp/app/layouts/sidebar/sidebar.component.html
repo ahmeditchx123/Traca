@@ -1,0 +1,117 @@
+
+    <div class="card user" style="padding-bottom: 0px;" *ngIf="account">
+        <p class="lead" style="font-size: 1.25vw !important;">Bienvenue, <b>{{account.firstName}} {{account.lastName}}</b> à</p>
+        <h1 class="display-4" style="font-size: 1.85vw !important;">Express Delivery</h1>
+
+
+        <div class="row"
+             style="margin-top: 20px;background-color: #7a8194;border-top-right-radius: 10px;border-top-left-radius: 10px;">
+
+            <div class="col-lg-4 col-md-4 col-xs-12"
+                 style="text-align:center;display:block;padding-top: 5px;padding-bottom: 7px;">
+                <a routerLink="settings"
+                   style="float: left; font-size: 0.8vw !important;font-weight: 300;color: #fdc528;text-decoration: none;text-align:center;display:block;width: 100%">
+                    <fa-icon [icon]="faUserCircle"></fa-icon>
+                    <span>Compte</span>
+                </a>
+            </div>
+            <div  class="col-lg-4 col-md-4 col-xs-12"
+                 style="text-align:center;display:block;padding-top: 5px;padding-bottom: 7px;">
+                <a routerLink="admin/jhi-health"
+                   style="float: left; font-size: 0.8vw !important;font-weight: 300;color: #fdc528;text-decoration: none;text-align:center;display:block;width: 100%">
+                    <fa-icon [icon]="faCogs"></fa-icon>
+                    <span>Système</span>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-4 col-xs-12"
+                 style="text-align:center;display:block;padding-top: 5px;padding-bottom: 7px;">
+                <a (click)="logout()"
+                   style="float: left;  font-size: 0.8vw !important;font-weight: 300;color: #fdc528;text-align:center;display:block;width: 100%;">
+                    <fa-icon icon="sign-out-alt"></fa-icon>
+                    <span>Déconnexion</span>
+                </a>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="card card-statistics user-action">
+        <div class="card-body menu-el" routerLink="delivery-package">
+            <div class="clearfix">
+                <div class="float-left">
+                    <i class="mdi mdi-cube icon-lg text-black" style="font-size: 3vw !important;"></i>
+                </div>
+                <div class="float-left">
+                    <div class="fluid-container">
+                        <p>
+                            <span class="el-title">Colis</span><br>
+                            <span class="el-text"><span class="badge badge-danger el-badge">{{collisNumber}}</span> Crées aujourd'hui</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="float-right">
+                    <i class="mdi mdi-chevron-right text-danger icon-lg" style="font-size: 2.3vw !important;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card card-statistics user-action">
+        <div class="card-body menu-el" routerLink="run-sheet">
+            <div class="clearfix">
+                <div class="float-left">
+                    <i class="mdi mdi-receipt icon-lg text-black" style="font-size: 3vw !important;"></i>
+                </div>
+                <div class="float-left">
+                    <div class="fluid-container">
+                        <p>
+                            <span class="el-title">{{count.numberRunsheet}} Runsheet</span><br>
+                            <span class="el-text"><span class="badge badge-danger el-badge">{{runSheetNumber}}</span> Crées aujourd'hui</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="float-right">
+                    <i class="mdi mdi-chevron-right text-danger icon-lg" style="font-size: 2.3vw !important;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card card-statistics user-action">
+        <div class="card-body menu-el" routerLink="shipper">
+            <div class="clearfix">
+                <div class="float-left">
+                    <i class="mdi mdi-face icon-lg text-black" style="font-size: 3vw !important;"></i>
+                </div>
+                <div class="float-left">
+                    <div class="fluid-container">
+                        <p>
+                            <span class="el-title">Clients</span><br>
+                            <span class="el-text"><span class="badge badge-danger el-badge">{{clientNumber}}</span> Crées aujourd'hui</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="float-right">
+                    <i class="mdi mdi-chevron-right text-danger icon-lg" style="font-size: 2.3vw !important;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card card-statistics user-action">
+        <div class="card-body menu-el" routerLink="delivery-man">
+            <div class="clearfix">
+                <div class="float-left">
+                    <i class="mdi mdi-truck icon-lg text-black" style="font-size: 3vw !important;"></i>
+                </div>
+                <div class="float-left">
+                    <div class="fluid-container">
+                        <p>
+                            <span class="el-title">Livreurs</span><br>
+                            <span class="el-text"><span class="badge badge-danger el-badge">{{livreurNumber}}</span> Crées aujourd'hui</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="float-right">
+                    <i class="mdi mdi-chevron-right text-danger icon-lg" style="font-size: 2.3vw !important;"></i>
+                </div>
+            </div>
+        </div>
+    </div>

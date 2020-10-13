@@ -1,0 +1,48 @@
+<div class="row card other-card">
+    <div class="col-8">
+        <div *ngIf="deliveryMan">
+            <h2 class="header-page"><i class="mdi mdi-truck icon-lg icon"></i><span>Livreur</span> {{deliveryMan.code}}</h2>
+            <jhi-alert-error></jhi-alert-error>
+            <h5>Detaille Livreur</h5>
+            <hr>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Code</span></dt>
+                <dd>
+                    <span>{{deliveryMan.code}}</span>
+                </dd>
+                <dt><span>Prénom</span></dt>
+                <dd>
+                    <span>{{deliveryMan.firstName}}</span>
+                </dd>
+                <dt><span>Nom</span></dt>
+                <dd>
+                    <span>{{deliveryMan.lastName}}</span>
+                </dd>
+                <dt><span>Tel 1</span></dt>
+                <dd>
+                    <span>{{deliveryMan.firstPhone}}</span>
+                </dd>
+                <dt><span>Tel 2</span></dt>
+                <dd>
+                    <span>{{deliveryMan.secondPhone}}</span>
+                </dd>
+                <dt><span>Date Embauche</span></dt>
+                <dd>
+                    <span>{{deliveryMan.hireDate | date: 'dd-MM-yyyy'}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-outline-secondary">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Retour</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/delivery-man', deliveryMan.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Éditer</span>
+            </button>
+        </div>
+    </div>
+</div>

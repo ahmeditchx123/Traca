@@ -1,0 +1,51 @@
+<div class="card other-card">
+    <h2 id="page-heading">
+        <i class="mdi mdi-cube icon-lg icon"></i><span>Vos colis</span>
+        <button id="jh-create-entity" class="btn btn-outline-dark float-right jh-create-entity create-delivery-package"  [routerLink]="['/', 'client','/delivery-package', { outlets: { popup: '/addNew'} }]">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Nouveau Colis
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="deliveryPackages">
+        <table class="table table-hover">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="receiverFirstName"><span>Destinateur</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="shipperId"><span>Adresse</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+
+                <th jhiSortBy="status"><span>Fragilité</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="addressId"><span>Status</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let deliveryPackage of deliveryPackages ;trackBy: trackId">
+                <td><a [routerLink]="['/delivery-package', deliveryPackage.id, 'view' ]">{{deliveryPackage.id}}</a></td>
+                <td>{{deliveryPackage.receiverFirstName}} {{deliveryPackage.receiverLastName}}</td>
+                <td>
+                    <div *ngIf="deliveryPackage.address.line1">
+                       {{deliveryPackage.address.line1}}
+                    </div>
+                    <div *ngIf="!deliveryPackage.address.line1 && deliveryPackage.address.line2">
+                        {{deliveryPackage.address.line2}}
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        {{deliveryPackage.fragility}}
+                    </div>
+                </td>
+                <td *ngIf="deliveryPackage.status == 'NEW'"><span class="badge badge-info">{{deliveryPackage.status}}</span></td>
+                <td *ngIf="deliveryPackage.status == 'TO_DELIVER'"><span class="badge badge-dark">{{deliveryPackage.status}}</span></td>
+                <td *ngIf="deliveryPackage.status == 'PICKED'"><span class="badge badge-primary">{{deliveryPackage.status}}</span></td>
+                <td *ngIf="deliveryPackage.status == 'DELIVERED'"><span class="badge badge-success">{{deliveryPackage.status}}</span></td>
+                <td *ngIf="deliveryPackage.status == 'REFUSED'"><span class="badge badge-danger">{{deliveryPackage.status}}</span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>

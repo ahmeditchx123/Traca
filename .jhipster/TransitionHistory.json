@@ -1,0 +1,29 @@
+{
+    "name": "TransitionHistory",
+    "fields": [
+        {
+            "fieldName": "transitionDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "fromStatus",
+            "fieldType": "DeliveryPackageStatus",
+            "fieldValues": "NEW,TO_DELIVER,PICKED,DELIVERED,REFUSED,NA"
+        },
+        {
+            "fieldName": "toStatus",
+            "fieldType": "DeliveryPackageStatus",
+            "fieldValues": "NEW,TO_DELIVER,PICKED,DELIVERED,REFUSED,NA"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20190217163211",
+    "entityTableName": "transition_history",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

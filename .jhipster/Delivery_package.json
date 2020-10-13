@@ -1,0 +1,19 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "price",
+            "fieldType": "Double"
+        }
+    ],
+    "changelogDate": "20190509122556",
+    "dto": "no",
+    "searchEngine": false,
+    "service": "no",
+    "entityTableName": "delivery_package",
+    "databaseType": "sql",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no"
+}

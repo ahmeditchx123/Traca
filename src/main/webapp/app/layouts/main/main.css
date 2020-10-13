@@ -1,0 +1,88 @@
+/* ==========================================================================
+Main page styles
+========================================================================== */
+
+.hipster {
+    display: inline-block;
+    width: 347px;
+    height: 497px;
+    background: url('../../../content/images/logo-delivery.png') no-repeat center top;
+    background-size: contain;
+}
+
+/* wait autoprefixer update to allow simple generation of high pixel density media query */
+@media only screen and (-webkit-min-device-pixel-ratio: 2),
+    only screen and (-moz-min-device-pixel-ratio: 2),
+    only screen and (-o-min-device-pixel-ratio: 2/1),
+    only screen and (min-resolution: 192dpi),
+    only screen and (min-resolution: 2dppx) {
+    .hipster {
+        background: url('../../../content/images/logo-delivery.png') no-repeat center top;
+        background-size: contain;
+    }
+}
+
+/* COLORS
+========================================== */
+/* MIXINS
+========================================== */
+/* RESET
+========================================== */
+*,
+*:before,
+*:after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #051321;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.user {
+    margin-right: 30px;
+    padding: 20px;
+    background-color: #687086;
+    border-radius: 10px;
+    color: white;
+}
+
+.user-action {
+    margin-right: 30px;
+    border-radius: 10px;
+    margin-top: 15px;
+    background-color: #f2f8f9;
+}
+
+.menu-el {
+    padding: 0px 1rem;
+    cursor: pointer;
+}
+
+.menu-el i {
+    color: #687086 !important;
+}
+
+.menu-el p {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.menu-el .el-title {
+    margin-top: 12px;
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+.menu-el .el-text {
+    margin-top: 5px;
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+.menu-el .el-badge {
+    padding: 2px;
+    font-size: 1em;
+}

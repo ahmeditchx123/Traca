@@ -1,0 +1,85 @@
+<div>
+    <div class="row card other-card">
+        <div class="col-md-8">
+            <h2 *ngIf="settingsAccount">Mon compte [<b>{{settingsAccount.login}}</b>]</h2>
+
+            <button type="submit" *ngIf="client" style="float: right" [routerLink]="['/client']"  class="btn btn-dark" style="margin-bottom: 3em;">Retour</button>
+
+
+
+            <div class="alert alert-success" *ngIf="success">
+                <strong>Paramètres sauvegardés!</strong>
+            </div>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <form name="form" role="form" (ngSubmit)="save()" #settingsForm="ngForm" *ngIf="settingsAccount" novalidate>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="firstName">Prénom</label>
+                    <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Votre prénom"
+                           [(ngModel)]="settingsAccount.firstName" minlength=1 maxlength=50 #firstNameInput="ngModel" required>
+                    <div *ngIf="firstNameInput.dirty && firstNameInput.invalid">
+                        <small class="form-text text-danger"
+                           *ngIf="firstNameInput.errors.required">
+                            Votre prénom est requis.
+                        </small>
+                        <small class="form-text text-danger"
+                           *ngIf="firstNameInput.errors.minlength">
+                            Votre prénom doit comporter au moins 1 caractère.
+                        </small>
+                        <small class="form-text text-danger"
+                           *ngIf="firstNameInput.errors.maxlength">
+                            Votre prénom ne peut pas dépasser 50 caractères.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="lastName">Nom</label>
+                    <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Votre nom"
+                           [(ngModel)]="settingsAccount.lastName" minlength=1 maxlength=50 #lastNameInput="ngModel" required>
+                    <div *ngIf="lastNameInput.dirty && lastNameInput.invalid">
+                        <small class="form-text text-danger"
+                           *ngIf="lastNameInput.errors.required">
+                            Votre nom est requis.
+                        </small>
+                        <small class="form-text text-danger"
+                           *ngIf="lastNameInput.errors.minlength">
+                            Votre nom doit comporter au moins 1 caractère.
+                        </small>
+                        <small class="form-text text-danger"
+                           *ngIf="lastNameInput.errors.maxlength">
+                            Votre nom ne peut pas être plus de 50 caractères.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Votre email"
+                           [(ngModel)]="settingsAccount.email" minlength="5" maxlength="254" #emailInput="ngModel" email required>
+                    <div *ngIf="emailInput.dirty && emailInput.invalid">
+                        <small class="form-text text-danger"
+                           *ngIf="emailInput.errors.required">
+                            Votre email est requis.
+                        </small>
+                        <small class="form-text text-danger"
+                           *ngIf="emailInput.errors.email">
+                            Votre email est invalide.
+                        </small>
+                        <small class="form-text text-danger"
+                           *ngIf="emailInput.errors.minlength">
+                            Votre email doit contenir au moins 5 caractères.
+                        </small>
+                        <small class="form-text text-danger"
+                           *ngIf="emailInput.errors.maxlength">
+                            Votre email ne peut pas dépasser 100 caractères.
+                        </small>
+                    </div>
+                </div>
+                <button routerLink="/password" type="button" class="btn btn-light">Modifier mot de passe</button>
+                <button type="submit" [disabled]="settingsForm.form.invalid" class="btn btn-primary">Enregistrer</button>
+            </form>
+        </div>
+    </div>
+
+</div>

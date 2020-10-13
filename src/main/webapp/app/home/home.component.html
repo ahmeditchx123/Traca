@@ -1,0 +1,232 @@
+<div class="row">
+    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card" *ngIf="count">
+        <div class="card card-statistics">
+            <div class="card-body">
+                <div class="clearfix">
+                    <div class="float-left">
+                        <i class="mdi mdi-cube text-danger icon-lg"></i>
+                    </div>
+                    <div class="float-right">
+                        <p class="mb-0 text-right" style="font-weight: 500;font-size: 15px;">Colis</p>
+                        <div class="fluid-container">
+                            <h3 class="font-weight-medium text-right mb-0">{{count.numberPackage}}</h3>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-muted mt-3 mb-0">
+                    <i class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></i> Gestion colis
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+        <div class="card card-statistics">
+            <div class="card-body">
+                <div class="clearfix">
+                    <div class="float-left">
+                        <i class="mdi mdi-receipt icon-lg text-warning"></i>
+                    </div>
+                    <div class="float-right">
+                        <p class="mb-0 text-right" style="font-weight: 500;font-size: 15px;">Runsheet</p>
+                        <div class="fluid-container">
+                            <h3 class="font-weight-medium text-right mb-0">{{count.numberRunsheet}}</h3>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-muted mt-3 mb-0">
+                    <i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i> Gestion Runsheet
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+        <div class="card card-statistics">
+            <div class="card-body">
+                <div class="clearfix">
+                    <div class="float-left">
+                        <i class="mdi mdi-face text-info icon-lg"></i>
+                    </div>
+                    <div class="float-right">
+                        <p class="mb-0 text-right" style="font-weight: 500;font-size: 15px;">Client</p>
+                        <div class="fluid-container">
+                            <h3 class="font-weight-medium text-right mb-0">{{count.numberSheeper}}</h3>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-muted mt-3 mb-0">
+                    <i class="mdi mdi-reload mr-1" aria-hidden="true"></i> Gestion Clients
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+        <div class="card card-statistics">
+            <div class="card-body">
+                <div class="clearfix">
+                    <div class="float-left">
+                        <i class="mdi mdi-truck text-success icon-lg"></i>
+                    </div>
+                    <div class="float-right">
+                        <p class="mb-0 text-right" style="font-weight: 500;font-size: 15px;">Livreur</p>
+                        <div class="fluid-container">
+                            <h3 class="font-weight-medium text-right mb-0">{{count.numberDeliveryMan}}</h3>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-muted mt-3 mb-0">
+                    <i class="mdi mdi-calendar mr-1" aria-hidden="true"></i> Gestion Livreurs
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+
+    <div class="col-lg-6 col-md-12">
+
+        <div class="card padding-top" style="padding-top: 0px">
+
+            <div style="padding-bottom: 10px;background-color: #f7f7f7;;padding-top: 20px">
+                <h2>
+                    <span class="title-card">Colis</span>
+                    <button
+                        class="btn btn-outline-dark float-right jh-create-entity create-delivery-package add-button btn btn-icons btn-rounded"
+                        [routerLink]="['/delivery-package/new']">
+                        <fa-icon [icon]="'plus'"></fa-icon>
+                        <span></span>
+                    </button>
+                </h2>
+                <div class="row count-container" *ngIf="count" style="min-height: 7vh;">
+                    <div class="col-4 count-container-border count-container-top-border" style="text-align:center;">
+                        <p class="text-muted mt-3 mb-0" style="margin-top: 0.5rem !important;">
+                            Nouveaux
+                        </p>
+                        <label class="badge badge-info">{{count.numberNewPackage}} NEW </label>
+                    </div>
+                    <div class="col-4 justify-content-center count-container-border count-container-top-border"
+                         style="text-align:center;">
+                        <p class="text-muted mt-3 mb-0" style="margin-top: 0.5rem !important;">
+                            Affectés
+                        </p>
+                        <label class="badge badge-warning">{{count.numberPickedPackage}} Picked</label>
+                    </div>
+                    <div class="col-4 justify-content-center count-container-top-border" style="text-align:center;">
+                        <p class="text-muted mt-3 mb-0" style="margin-top: 0.5rem !important;">
+                            Livrés
+                        </p>
+                        <label class="badge badge-success">{{count.numberDeliveredPackage}} Delivered</label>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="table-responsive " *ngIf="deliveryPackages">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th><span>Code</span></th>
+                            <th><span>Destinataire</span></th>
+                            <th><span>Status</span></th>
+                            <th><span>Client</span></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let deliveryPackage of deliveryPackages ;trackBy: trackId">
+                            <td><a class="truncate" [routerLink]="['/delivery-package', deliveryPackage.id, 'view' ]">{{deliveryPackage.code}}</a>
+                            </td>
+                            <td class="truncate">{{deliveryPackage.receiverLastName | slice:0:6}}</td>
+                            <td><span class="badge badge-dark"
+                                      style="font-size: 12px">{{deliveryPackage.status}}</span></td>
+                            <td>
+                                <div *ngIf="deliveryPackage.shipperId">
+                                    <a class="truncate"
+                                       [routerLink]="['../shipper', deliveryPackage.shipperId , 'view' ]">{{deliveryPackage.shipper.firstName}}
+                                        {{deliveryPackage.shipper.lastName}}</a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="col-lg-6 col-md-12">
+
+
+        <div class="card padding-top" style="padding-top: 0px">
+            <div style="padding-bottom: 10px;background-color: #f7f7f7;;padding-top: 20px">
+                <h2>
+                    <span class="title-card">Run Sheets</span>
+                    <button
+                        class="btn btn-outline-dark float-right jh-create-entity create-run-sheet add-button btn btn-icons btn-rounded"
+                        [routerLink]="['/run-sheet/new']">
+                        <fa-icon [icon]="'plus'"></fa-icon>
+                        <span></span>
+                    </button>
+                </h2>
+                <div class="row count-container" *ngIf="count" style="min-height: 7vh;">
+                    <div class="col-4 count-container-border count-container-top-border" style="text-align:center;">
+                        <p class="text-muted mt-3 mb-0" style="margin-top: 0.5rem !important;">
+                            Nouveaux
+                        </p>
+                        <label class="badge badge-info">{{count.numberNewRunsheet}} NEW </label>
+                    </div>
+                    <div class="col-4 justify-content-center count-container-border count-container-top-border"
+                         style="text-align:center;">
+                        <p class="text-muted mt-3 mb-0" style="margin-top: 0.5rem !important;">
+                            Affectés
+                        </p>
+                        <label class="badge badge-warning">{{count.numberAffectedRunsheet}} Affected</label>
+                    </div>
+                    <div class="col-4 justify-content-center count-container-top-border" style="text-align:center;">
+                        <p class="text-muted mt-3 mb-0" style="margin-top: 0.5rem !important;">
+                            Cloturer
+                        </p>
+                        <label class="badge badge-success">{{count.numberHandledRunsheet}} Handled</label>
+                    </div>
+                </div>
+
+            </div>
+            <div>
+                <div class="table-responsive " *ngIf="runSheets">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th><span>Code</span></th>
+                            <th><span>Date Création</span></th>
+                            <th><span>Status</span></th>
+                            <th><span>Livreur</span></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let runSheet of runSheets ;trackBy: trackId">
+                            <td><a class="truncate"
+                                   [routerLink]="['/run-sheet', runSheet.id, 'view' ]">{{runSheet.code}}</a></td>
+                            <td class="truncate">{{runSheet.creationDate | date:'short'}}</td>
+                            <td><span class="badge badge-dark" style="font-size: 12px">{{runSheet.status}}</span>
+                            </td>
+                            <td>
+                                <div *ngIf="runSheet.deliveryManId">
+                                    <a class="truncate"
+                                       [routerLink]="['../delivery-man', runSheet.deliveryManId , 'view' ]">{{runSheet.deliveryMan.firstName}}
+                                        {{runSheet.deliveryMan.lastName}}</a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+

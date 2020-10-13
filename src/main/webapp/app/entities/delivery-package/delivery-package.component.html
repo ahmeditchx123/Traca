@@ -1,0 +1,103 @@
+<div class="card other-card">
+    <h2 id="page-heading">
+        <i class="mdi mdi-cube icon-lg icon"></i><span>Gestion Colis</span>
+        <button id="jh-create-entity" class="btn btn-outline-dark float-right jh-create-entity create-delivery-package"
+                [routerLink]="['/delivery-package/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span>
+            Nouveau Colis
+            </span>
+        </button>
+    </h2>
+    <div class="col-md-2 float-lg-right" id="filterBy" style="width: 100%">
+
+        <select style="float: right" class="selectpicker" name="status" sty id="field_status" (change)="onChange($event.target.value)">
+            <option disabled selected>Filter par statut</option>
+            <option value="null">Tout</option>
+            <option value="NEW">New</option>
+            <option value="TO_DELIVER">To Deliver</option>
+            <option value="PICKED">Picked</option>
+            <option value="DELIVERED">Delivered</option>
+            <option value="REFUSED">Refused</option>
+        </select>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="deliveryPackages">
+        <table class="table table-hover">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                <th jhiSortBy="id"><span>ID</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
+                <th jhiSortBy="receiverFirstName"><span>Destinataire</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
+                <th jhiSortBy="shipperId"><span>Client</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
+
+                <th jhiSortBy="status"><span>Status</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
+                <th jhiSortBy="addressId"><span>Adresse</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let deliveryPackage of deliveryPackages ;trackBy: trackId">
+                <td><a [routerLink]="['/delivery-package', deliveryPackage.id, 'view' ]">{{deliveryPackage.id}}</a></td>
+                <td>{{deliveryPackage.receiverFirstName}} {{deliveryPackage.receiverLastName}}</td>
+                <td>
+                    <div *ngIf="deliveryPackage.shipperId">
+                        <a [routerLink]="['../shipper', deliveryPackage.shipperId , 'view' ]">{{deliveryPackage.shipper.firstName}}
+                            {{deliveryPackage.shipper.lastName}}</a>
+                    </div>
+                </td>
+                <td>{{deliveryPackage.status}}</td>
+                <td>
+                    <div *ngIf="deliveryPackage.addressId">
+                        <a [routerLink]="['../address', deliveryPackage.addressId , 'view' ]">{{deliveryPackage.address.city}}</a>
+                    </div>
+                </td>
+
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/delivery-package', deliveryPackage.id, 'view' ]"
+                                class="btn btn-outline-light btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">Voir</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/delivery-package', deliveryPackage.id, 'edit']"
+                                class="btn btn-outline-warning btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Editer</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'delivery-package', { outlets: { popup: deliveryPackage.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-outline-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Effacer</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="deliveryPackages && deliveryPackages.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5"
+                            [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5"
+                            [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

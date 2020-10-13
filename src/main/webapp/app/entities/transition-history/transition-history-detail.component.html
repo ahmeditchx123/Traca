@@ -1,0 +1,35 @@
+<div class="row card other-card">
+    <div class="col-8">
+        <div *ngIf="transitionHistory">
+            <h2><span>Transition History</span> {{transitionHistory.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Transition Date</span></dt>
+                <dd>
+                    <span>{{transitionHistory.transitionDate}}</span>
+                </dd>
+                <dt><span>From Status</span></dt>
+                <dd>
+                    <span>{{transitionHistory.fromStatus}}</span>
+                </dd>
+                <dt><span>To Status</span></dt>
+                <dd>
+                    <span>{{transitionHistory.toStatus}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-outline-secondary">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Retour</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/transition-history', transitionHistory.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Éditer</span>
+            </button>
+        </div>
+    </div>
+</div>

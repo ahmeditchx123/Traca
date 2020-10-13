@@ -1,0 +1,45 @@
+{
+    "name": "RunSheet",
+    "fields": [
+        {
+            "fieldName": "code",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "creationDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "RunSheetStatut",
+            "fieldValues": "NEW,AFFECTED,HANDLED"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "deliveryMan",
+            "otherEntityName": "deliveryMan",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "runSheet"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "deliveryPackages",
+            "otherEntityName": "deliveryPackage",
+            "otherEntityRelationshipName": "runSheet"
+        }
+    ],
+    "changelogDate": "20190217163212",
+    "entityTableName": "run_sheet",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

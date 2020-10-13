@@ -1,0 +1,125 @@
+<div class="card user" style="padding-bottom: 0px;">
+    <p class="lead" *ngIf="account">Bienvenue, <b>{{account.firstName}} {{account.lastName}}</b> to</p>
+    <h1 class="display-4">Express Delivery</h1>
+
+    <div class="row"
+         style="margin-top: 20px;background-color: #7a8194;border-top-right-radius: 10px;border-top-left-radius: 10px;">
+
+        <div class="col-lg-6 col-md-12"
+             style="text-align:center;display:block;padding-top: 5px;padding-bottom: 7px;">
+            <a routerLink="settings"
+               style="float: left;font-size: 15px;font-weight: 300;color: #fdc528;text-decoration: none;text-align:center;display:block;width: 100%">
+                <fa-icon [icon]="fauser"></fa-icon>
+                <span>Mon compte</span>
+            </a>
+        </div>
+        <div class="col-lg-6 col-md-12"
+             style="text-align:center;display:block;padding-top: 5px;padding-bottom: 7px;">
+            <a (click)="logout()"
+               style="float: left;font-size: 15px;font-weight: 300;color: #fdc528;text-align:center;display:block;width: 100%">
+                <fa-icon icon="sign-out-alt"></fa-icon>
+                <span>Déconnexion</span>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="card card-statistics user-action">
+    <div class="card-body menu-el" (click)="filterPackagesBy('NA')">
+        <div class="clearfix">
+            <div class="float-left">
+                <i class="mdi mdi-package-variant-closed icon-lg text-black"></i>
+            </div>
+            <div class="float-left">
+                <div class="fluid-container">
+                    <p>
+                        <span class="el-title">All</span><br>
+                        <span class="el-text"><span class="badge badge-danger el-badge">{{packagesCount.allPackagesCount}}</span> Packages</span>
+                    </p>
+                </div>
+            </div>
+            <div class="float-right">
+                <i class="mdi mdi-chevron-right text-danger icon-lg"></i>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card card-statistics user-action">
+    <div class="card-body menu-el" (click)="filterPackagesBy('NEW')">
+        <div class="clearfix">
+            <div class="float-left">
+                <i class="mdi mdi-new-box icon-lg text-black"></i>
+            </div>
+            <div class="float-left">
+                <div class="fluid-container">
+                    <p>
+                        <span class="el-title">Nouveau</span><br>
+                        <span class="el-text"><span class="badge badge-danger el-badge">{{packagesCount.newPackagesCount}}</span> Nouveau Colis</span>
+                    </p>
+                </div>
+            </div>
+            <div class="float-right">
+                <i class="mdi mdi-chevron-right text-danger icon-lg"></i>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card card-statistics user-action">
+    <div class="card-body menu-el" (click)="filterPackagesBy('TO_DELIVER')">
+        <div class="clearfix">
+            <div class="float-left">
+                <i class="mdi mdi-receipt icon-lg text-black"></i>
+            </div>
+            <div class="float-left">
+                <div class="fluid-container">
+                    <p>
+                        <span class="el-title">To Deliver</span><br>
+                        <span class="el-text"><span class="badge badge-danger el-badge">{{packagesCount.toDeliverPackagesCount}}</span> Colis pris en charge</span>
+                    </p>
+                </div>
+            </div>
+            <div class="float-right">
+                <i class="mdi mdi-chevron-right text-danger icon-lg"></i>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card card-statistics user-action">
+    <div class="card-body menu-el" (click)="filterPackagesBy('PICKED')">
+        <div class="clearfix">
+            <div class="float-left">
+                <i class="mdi mdi-truck icon-lg text-black"></i>
+            </div>
+            <div class="float-left">
+                <div class="fluid-container">
+                    <p>
+                        <span class="el-title">Picked</span><br>
+                        <span class="el-text"><span class="badge badge-danger el-badge">{{packagesCount.pickedPackagesCount}}</span> Colis expédié</span>
+                    </p>
+                </div>
+            </div>
+            <div class="float-right">
+                <i class="mdi mdi-chevron-right text-danger icon-lg"></i>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card card-statistics user-action">
+    <div class="card-body menu-el" (click)="filterPackagesBy('DELIVERED')">
+        <div class="clearfix">
+            <div class="float-left">
+                <i class="mdi mdi-checkbox-marked-outline icon-lg text-black"></i>
+            </div>
+            <div class="float-left">
+                <div class="fluid-container">
+                    <p>
+                        <span class="el-title">Delivered</span><br>
+                        <span class="el-text"><span class="badge badge-danger el-badge">{{packagesCount.deliveredPackagesCount}}</span> Colis livré</span>
+                    </p>
+                </div>
+            </div>
+            <div class="float-right">
+                <i class="mdi mdi-chevron-right text-danger icon-lg"></i>
+            </div>
+        </div>
+    </div>
+</div>

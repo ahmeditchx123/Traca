@@ -1,0 +1,71 @@
+<div class="card other-card">
+    <h2 id="page-heading">
+        <i class="mdi mdi-face icon-lg icon"></i><span>Gestion Clients</span>
+        <button id="jh-create-entity" class="btn btn-outline-dark float-right jh-create-entity create-shipper" [routerLink]="['/shipper/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Nouveau Client
+            </span>
+        </button>
+    </h2>
+    <br/>
+    <div class="table-responsive" *ngIf="shippers">
+        <table class="table table-hover">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="firstName"><span>Nom Complet</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="login"><span>Login</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="firstPhone"><span>Tel</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="addressId"><span>Ville</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let shipper of shippers ;trackBy: trackId">
+                <td><a [routerLink]="['/shipper', shipper.id, 'view' ]">{{shipper.id}}</a></td>
+                <td>{{shipper.firstName}} {{shipper.lastName}}</td>
+                <td><a [routerLink]="['/shipper', shipper.id, 'view' ]">{{shipper.login}}</a></td>
+                <td>{{shipper.firstPhone}}</td>
+                <td>
+                    <div *ngIf="shipper.addressId">
+                        <a [routerLink]="['../address', shipper.addressId , 'view' ]" >{{shipper.address.city}}, {{shipper.address.postalCode}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/shipper', shipper.id, 'view' ]"
+                                class="btn btn-outline-light btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">Voir</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/shipper', shipper.id, 'edit']"
+                                class="btn btn-outline-warning btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Éditer</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'shipper', { outlets: { popup: shipper.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-outline-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Effacer</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="shippers && shippers.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination  [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,66 @@
+<div>
+    <h2 id="page-heading">
+        <span>Transition Histories</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-transition-history" [routerLink]="['/transition-history/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Nouveau Transition History
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="transitionHistories">
+        <table class="table table-hover">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="transitionDate"><span>Transition Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="fromStatus"><span>From Status</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="toStatus"><span>To Status</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let transitionHistory of transitionHistories ;trackBy: trackId">
+                <td><a [routerLink]="['/transition-history', transitionHistory.id, 'view' ]">{{transitionHistory.id}}</a></td>
+                <td>{{transitionHistory.transitionDate | date:'medium'}}</td>
+                <td>{{transitionHistory.fromStatus}}</td>
+                <td>{{transitionHistory.toStatus}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/transition-history', transitionHistory.id, 'view' ]"
+                                class="btn btn-outline-primary btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/transition-history', transitionHistory.id, 'edit']"
+                                class="btn btn-outline-warning btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Éditer</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'transition-history', { outlets: { popup: transitionHistory.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-outline-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Effacer</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="transitionHistories && transitionHistories.length">
+        <div class="row card other-card">
+            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row card other-card">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

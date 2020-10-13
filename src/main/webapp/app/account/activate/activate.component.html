@@ -1,0 +1,17 @@
+<div>
+    <div class="row card other-card">
+        <div class="col-md-8">
+            <h1>Activation</h1>
+
+            <div class="alert alert-success" *ngIf="success">
+                <span><strong>Votre compte utilisateur a été activé.</strong> Svp </span>
+                <a class="alert-link" (click)="login()">se connecter</a>.
+            </div>
+
+            <div class="alert alert-danger" *ngIf="error">
+                <strong>Votre utilisateur n'a pas pu être activé.</strong> Veuillez utiliser le formulaire d'inscription pour vous inscrire.
+            </div>
+
+        </div>
+    </div>
+</div>

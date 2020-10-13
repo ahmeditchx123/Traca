@@ -1,0 +1,47 @@
+<div class="row card other-card">
+    <div class="col-8">
+        <div *ngIf="user">
+            <h2>
+                <span>Utilisateur</span> [<b>{{user.login}}</b>]
+            </h2>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Login</span></dt>
+                <dd>
+                    <span>{{user.login}}</span>
+                    <jhi-boolean
+                        [value]="user.activated"
+                        textTrue="Activated"
+                        textFalse="Deactivated">
+                    </jhi-boolean>
+                </dd>
+                <dt><span>Prénom</span></dt>
+                <dd>{{user.firstName}}</dd>
+                <dt><span>Nom</span></dt>
+                <dd>{{user.lastName}}</dd>
+                <dt><span>Email</span></dt>
+                <dd>{{user.email}}</dd>
+                <dt><span>Créé par</span></dt>
+                <dd>{{user.createdBy}}</dd>
+                <dt><span>Date de Création</span></dt>
+                <dd>{{user.createdDate | date:'dd/MM/yy HH:mm' }}</dd>
+                <dt><span>Dernière Modification Par</span></dt>
+                <dd>{{user.lastModifiedBy}}</dd>
+                <dt><span>Dernière Date de Modification</span></dt>
+                <dd>{{user.lastModifiedDate | date:'dd/MM/yy HH:mm'}}</dd>
+                <dt><span>Profils</span></dt>
+                <dd>
+                    <ul class="list-unstyled">
+                        <li *ngFor="let authority of user.authorities">
+                            <span class="badge badge-info">{{authority}}</span>
+                        </li>
+                    </ul>
+                </dd>
+            </dl>
+            <button type="submit"
+                    routerLink="../../"
+                    class="btn btn-outline-secondary">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Retour</span>
+            </button>
+        </div>
+    </div>
+</div>

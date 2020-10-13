@@ -1,0 +1,107 @@
+<div class="row card other-card">
+    <div class="col-12">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-run-sheet-heading" class="header-page"><i class="mdi mdi-receipt icon-lg icon"></i>Ajouter ou modifier Run Sheet
+            </h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="row">
+                    <div class="col-lg-6 col-md-12">
+                        <h5>Detaille</h5>
+                        <hr>
+                        <div class="form-group" [hidden]="!runSheet.id">
+                            <label for="id">ID</label>
+                            <input type="text" class="form-control" id="id" name="id"
+                                   [(ngModel)]="runSheet.id" readonly/>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_code">Code</label>
+                            <input type="text" class="form-control" name="code" id="field_code" disabled
+                                   [(ngModel)]="runSheet.code" required/>
+                            <div [hidden]="!(editForm.controls.code?.dirty && editForm.controls.code?.invalid)">
+                                <small class="form-text text-danger"
+                                       [hidden]="!editForm.controls.code?.errors?.required">
+                                    Ce champ est requis.
+                                </small>
+                            </div>
+                        </div>
+                        <div class="form-group" *ngIf="runSheet.id">
+                            <label class="form-control-label" for="field_creationDate">Date Création</label>
+                            <div class="d-flex">
+                                <input id="field_creationDate" readonly type="datetime-local" class="form-control"
+                                       name="creationDate" [(ngModel)]="creationDate" placeholder="YYYY-MM-DD HH:mm"
+                                />
+                            </div>
+                        </div>
+                        <div class="form-group" *ngIf="runSheet.id">
+                            <label class="form-control-label" for="field_status">Status</label>
+                            <select class="form-control" name="status" [(ngModel)]="runSheet.status" id="field_status">
+                                <option value="NEW">NEW</option>
+                                <option value="AFFECTED">AFFECTED</option>
+                                <option value="HANDLED">HANDLED</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_deliveryMan">Livreur</label>
+                            <select class="form-control" id="field_deliveryMan" required name="deliveryMan"
+                                    [(ngModel)]="runSheet.deliveryManId">
+                                <option [ngValue]="null"></option>
+                                <option [ngValue]="deliveryManOption.id"
+                                        *ngFor="let deliveryManOption of deliverymen; trackBy: trackDeliveryManById">
+                                    {{deliveryManOption.firstName}} {{deliveryManOption.lastName}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <h5>Ajouter Colis</h5>
+                        <hr>
+                        <div class="form-group">
+                            <div class="d-flex">
+                                <input type="text" class="form-control" (input)="addPackage(colis)"
+                                       name="creationDate" [(ngModel)]="colis" placeholder="Code a bar"
+                                />
+                            </div>
+                        </div>
+                        <span class="badge badge-pill badge-success" style="float: right;">{{runSheet.deliveryPackages.length}}</span>
+                        <h5>Liste Colis</h5>
+                        <hr>
+                        <div class="fluid-container fade-in" *ngFor="let deliveryPackage of runSheet.deliveryPackages">
+                            <div class="row ticket-card mt-3 pb-2 border-bottom pb-3 mb-3">
+                                <div class="ticket-details col-md-10">
+                                    <div class="d-flex">
+                                        <p class="text-primary mr-1 mb-0" [routerLink]="['/run-sheet', runSheet.id, 'edit']" style="cursor: pointer;">[{{deliveryPackage.code}}]</p>
+                                        <p class="text-dark font-weight-semibold mr-2 mb-0 no-wrap">{{deliveryPackage.shipper.firstName}} {{deliveryPackage.shipper.lastName}}</p>
+                                        <p class="mb-0 ellipsis">{{deliveryPackage.receiverFirstName}} {{deliveryPackage.receiverLastName}}, Tel : {{deliveryPackage.receiverPhone}}</p>
+                                    </div>
+                                    <div class="row text-gray d-md-flex d-none">
+                                        <div class="col-12 d-flex">
+                                            <small class="mb-0 mr-2 text-muted text-muted">Client :</small>
+                                            <small class="Last-responded mr-2 mb-0 text-muted text-muted">{{deliveryPackage.shipper.firstName}} {{deliveryPackage.shipper.lastName}}</small>
+                                            <small class="mb-0 mr-2 text-muted text-muted">Crée :</small>
+                                            <small class="Last-responded mr-2 mb-0 text-muted text-muted">{{deliveryPackage.creationDate | date:'medium'}}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ticket-actions col-md-2">
+                                    <button type="button" class="btn btn-icons btn-rounded btn-outline-danger" (click)="removePackage(deliveryPackage)">
+                                        <i class="mdi mdi-close"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Annuler</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving"
+                        class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Enregistrer</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

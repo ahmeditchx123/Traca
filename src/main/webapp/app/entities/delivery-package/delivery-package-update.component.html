@@ -1,0 +1,246 @@
+<div class="row card other-card">
+    <div class="col-12">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-delivery-package-heading" class="header-page"><i class="mdi mdi-cube icon-lg icon"></i>Ajouter ou modifier Colis</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="row" >
+                    <div class="col-lg-6 col-md-12">
+                        <h5>Detaille Colis</h5>
+                        <hr>
+                        <div class="form-group" [hidden]="!deliveryPackage.id">
+                            <label for="id">ID</label>
+                            <input type="text" class="form-control" id="id" name="id"
+                                   [(ngModel)]="deliveryPackage.id" readonly />
+                        </div>
+                        <div class="form-group" *ngIf="!deliveryPackage.id">
+                            <label for="id">Code</label>
+                            <input type="text" class="form-control" id="code" name="code" required disabled
+                                   [(ngModel)]="deliveryPackage.code"  />
+                        </div>
+                        <div *ngIf="isAdminConnected" class="form-group">
+                            <label class="form-control-label" for="field_shipper">Client</label>
+                            <select class="form-control" required id="field_shipper" name="shipper" (ngModelChange)="handleChange($event)" [(ngModel)]="deliveryPackage.shipper" >
+                                <option [ngValue]="null"></option>
+                                <option [ngValue]="shipperOption" *ngFor="let shipperOption of shippers">{{shipperOption.firstName}} {{shipperOption.lastName}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_prix">Prix</label>
+                            <input type="number" class="form-control" required name="price" id="field_prix"
+                                   [(ngModel)]="deliveryPackage.price" #price="ngModel" [range]="[1,10000]" />
+                            <div *ngIf="price.invalid && (price.dirty || price.touched)"
+                                 class="form-text text-danger">
+
+                                <div *ngIf="price?.errors?.required">
+                                    Le champs prix est obligatoire
+                                </div>
+                                <div *ngIf="price?.errors?.range">
+                                    Le prix doit être entre 1 et 10000 dinars
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="deliveryPackage.id" class="form-group">
+                            <label class="form-control-label" for="field_status">Status</label>
+                            <select class="form-control" name="status" [(ngModel)]="deliveryPackage.status" id="field_status" >
+                                <option value="NEW">NEW</option>
+                                <option value="TO_DELIVER">TO_DELIVER</option>
+                                <option value="PICKED">PICKED</option>
+                                <option value="DELIVERED">DELIVERED</option>
+                                <option value="NA">NA</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_fragility">Fragilité</label>
+                            <select required class="form-control" name="fragility" [(ngModel)]="deliveryPackage.fragility" id="field_fragility" >
+                                <option value="FRAGILE">FRAGILE</option>
+                                <option value="NOT_FRAGILE">NOT_FRAGILE</option>
+                            </select>
+                        </div>
+
+                        <div *ngIf="deliveryPackage.id" class="form-group">
+                            <label class="form-control-label" for="field_creationDate">Date Création</label>
+                            <div class="d-flex">
+                                <input id="field_creationDate" readonly type="datetime-local" class="form-control" name="creationDate" [(ngModel)]="creationDate" placeholder="YYYY-MM-DD HH:mm"
+                                />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_height">Hauteur</label>
+                            <input type="number" class="form-control" name="height" id="field_height"
+                                   [(ngModel)]="deliveryPackage.height" #height="ngModel" [range]="[0.1,5]" />
+                            <div *ngIf="height.invalid && (height.dirty || height.touched)"
+                                 class="form-text text-danger">
+                                <div *ngIf="height?.errors?.range">
+                                    L'hauteur du colis doit étre entre 0.1 et 5.0 mètres.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_width">Largeur</label>
+                            <input type="number" class="form-control" name="width" id="field_width"
+                                   [(ngModel)]="deliveryPackage.width" #width="ngModel" [range]="[0.1,5]" />
+                            <div *ngIf="width.invalid && (width.dirty || width.touched)"
+                                 class="form-text text-danger">
+                                <div *ngIf="width?.errors?.range">
+                                    La largeur du colis doit étre entre 0.1 et 5.0 mètres.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_weight">Poid</label>
+                            <input type="number" class="form-control" name="weight" id="field_weight"
+                                   [(ngModel)]="deliveryPackage.weight" #weight="ngModel" [range]="[1,1000]" />
+                            <div *ngIf="weight.invalid && (weight.dirty || weight.touched)"
+                                 class="form-text text-danger">
+                                <div *ngIf="weight?.errors?.range">
+                                    Le poids du colis doit étre entre 1 et 1000 kilogramme.
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-6 col-md-12">
+                        <h5>Destinataire</h5>
+                        <hr>
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_receiverFirstName">Destinataire Prénom</label>
+                            <input type="text" class="form-control" required name="receiverFirstName" id="field_receiverFirstName"
+                                   [(ngModel)]="deliveryPackage.receiverFirstName" #receiverFirstName="ngModel" minlength="3" maxlength="20" />
+                            <div *ngIf="receiverFirstName.invalid && (receiverFirstName.dirty || receiverFirstName.touched)"
+                                 class="form-text text-danger">
+
+                                <div *ngIf="receiverFirstName?.errors?.required">
+                                    Le champs prénom est obligatoire
+                                </div>
+                                <div *ngIf="receiverFirstName?.errors?.minlength">
+                                    Le champs prénom doit contenir au moins 3 caractères
+                                </div>
+                                <div *ngIf="receiverFirstName?.errors.maxlength">
+                                    Le champs prénom ne doit pas contenir plus que 20 caractères
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_receiverLastName">Destinataire Nom</label>
+                            <input type="text" class="form-control" required name="receiverLastName" id="field_receiverLastName"
+                                   [(ngModel)]="deliveryPackage.receiverLastName"  #receiverLastName="ngModel" minlength="3" maxlength="20" />
+                            <div *ngIf="receiverLastName.invalid && (receiverLastName.dirty || receiverLastName.touched)"
+                                 class="form-text text-danger">
+
+                                <div *ngIf="receiverLastName?.errors?.required">
+                                    Le champs nom est obligatoire
+                                </div>
+                                <div *ngIf="receiverLastName?.errors?.minlength">
+                                    Le champs nom doit contenir au moins 3 caractères
+                                </div>
+                                <div *ngIf="receiverLastName?.errors.maxlength">
+                                    Le champs nom ne doit pas contenir plus que 20 caractères
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_receiverPhone">Destinataire Phone</label>
+                            <input type="number" class="form-control" name="receiverPhone" id="field_receiverPhone"
+                                   [(ngModel)]="deliveryPackage.receiverPhone" #receiverPhone="ngModel" required [range]="[20000000, 99999999]" />
+                            <div *ngIf="receiverPhone.invalid && (receiverPhone.dirty || receiverPhone.touched)"
+                                 class="form-text text-danger">
+
+                                <div *ngIf="receiverPhone?.errors?.required">
+                                    Le champs téléphone est obligatoire
+                                </div>
+                                <div *ngIf="receiverPhone?.errors?.range">
+                                    Merci de vérifier le format de numéro de téléphone saisie
+                                </div>
+
+                                <div *ngIf="receiverPhone?.errors?.pattern">
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <h5>Adresse de livraison</h5>
+                        <hr>
+
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_line1">Ligne 1</label>
+                            <input type="text" class="form-control" name="line1" id="field_line1"
+                                   [(ngModel)]="deliveryPackage.address.line1" #line1="ngModel" required/>
+                            <div *ngIf="line1.invalid && (line1.dirty || line1.touched)"
+                                 class="form-text text-danger">
+                                <div *ngIf="line1?.errors?.required">
+                                    Le champs ligne 1 est obligatoire
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_line2">Ligne 2</label>
+                            <input type="text" class="form-control" name="line2" id="field_line2"
+                                   [(ngModel)]="deliveryPackage.address.line2"/>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_city">Cité</label>
+                            <input type="text" class="form-control" name="city" id="field_city"
+                                   [(ngModel)]="deliveryPackage.address.city" #city="ngModel" required minlength="3" maxlength="20"/>
+                            <div *ngIf="city.invalid && (city.dirty || city.touched)"
+                                 class="form-text text-danger">
+
+                                <div *ngIf="city?.errors?.required">
+                                    Le champs cité est obligatoire
+                                </div>
+                                <div *ngIf="city?.errors?.minlength">
+                                    Le champs cité doit contenir au moins 3 caractères
+                                </div>
+                                <div *ngIf="city?.errors.maxlength">
+                                    Le champs nom ne cité pas contenir plus que 20 caractères
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_postalCode">Code postale</label>
+                            <input type="number" class="form-control" name="postalCode" id="field_postalCode"
+                                   [(ngModel)]="deliveryPackage.address.postalCode" #postalCode="ngModel" required [range]="[1000, 9000]" />
+                            <div *ngIf="postalCode.invalid && (postalCode.dirty || postalCode.touched)"
+                                 class="form-text text-danger">
+
+                                <div *ngIf="postalCode?.errors?.required">
+                                    Le champs code postal est obligatoire
+                                </div>
+                                <div *ngIf="postalCode?.errors?.range">
+                                    Le champs code postale doit etre entre 1000 et 9000
+                                </div>
+
+                                <div *ngIf="postalCode?.errors?.pattern">
+                                </div>
+
+                                <div *ngIf="postalCode?.errors?.digits">
+                                    Veuilez saisir un code postal valide entre 1000 et 9000
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Annuler</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Enregistrer</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

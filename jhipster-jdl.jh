@@ -1,0 +1,86 @@
+
+entity DeliveryMan {
+	code String required,
+    firstName String required,
+    lastName String required,
+    firstPhone Double,
+    secondPhone Double,
+    hireDate Instant
+}
+
+entity Address {
+	line1 String required,
+    line2 String,
+	city String required,
+    postalCode String required,
+    lat Integer,
+    lon Integer
+}
+
+entity Shipper {
+    firstPhone Double,
+    secondPhone Double
+}
+
+entity DeliveryPackage {
+	code String,
+    receiverFirstName String,
+    receiverLastName String,
+    receiverPhone Double required,
+    status DeliveryPackageStatus,
+    creationDate Instant,
+    height Float,
+    width Float,
+    weight Float,
+    fragility Fragility
+}
+
+entity TransitionHistory {
+	transitionDate Instant,
+    fromStatus DeliveryPackageStatus,
+    toStatus DeliveryPackageStatus
+}
+
+enum Fragility {
+	FRAGILE, NOT_FRAGILE
+}
+
+entity RunSheet {
+	code String required,
+	creationDate Instant,
+	status RunSheetStatut
+}
+
+enum DeliveryPackageStatus{
+	NEW, TO_DELIVER, PICKED, DELIVERED, REFUSED, NA
+}
+
+enum RunSheetStatut{
+	NEW, AFFECTED, HANDLED
+}
+
+
+
+relationship ManyToOne {
+	DeliveryPackage{shipper} to Shipper,
+    DeliveryPackage{runSheet} to RunSheet{deliveryPackages},
+    RunSheet{deliveryMan} to DeliveryMan{runSheet} 
+}
+
+// defining multiple oneToOne relationships
+relationship OneToOne {
+	Shipper{address} to Address,
+    DeliveryPackage{address} to Address
+}
+
+// Set pagination options
+paginate all with pagination
+
+// Use Data Transfert Objects (DTO)
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl
+
+// Set an angular suffix
+// angularSuffix * with mySuffix

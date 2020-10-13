@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+
+    <property name="now" value="now()" dbms="mysql"/>
+    <property name="autoIncrement" value="true"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
+
+    <!--
+        Added the entity RunSheet.
+    -->
+    <changeSet id="20190217163212-19" author="jhipster">
+        <addColumn tableName="jhi_user">
+            <column name="address_id" type="bigint"/>
+        </addColumn>
+        <addColumn tableName="jhi_user">
+            <column name="first_phone" type="double"/>
+        </addColumn>
+        <addColumn tableName="jhi_user">
+            <column name="second_phone" type="double"/>
+        </addColumn>
+        <addForeignKeyConstraint baseColumnNames="address_id"
+                                 baseTableName="jhi_user"
+                                 constraintName="fk_user_address_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="address"/>
+    </changeSet>
+
+
+    <changeSet id="20190217163212-20" author="jhipster">
+        <addColumn tableName="jhi_user">
+            <column name="user_type" type="varchar(50)"/>
+        </addColumn>
+
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+</databaseChangeLog>

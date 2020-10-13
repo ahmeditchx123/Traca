@@ -1,0 +1,406 @@
+/* ==========================================================================
+Navbar
+========================================================================== */
+.navbar-version {
+    font-size: 10px;
+    color: #ccc;
+}
+
+.jh-navbar {
+    background-color: #353d47;
+    padding: 0.2em 1em;
+}
+
+.jh-navbar .profile-image {
+    margin: -10px 0px;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+
+.jh-navbar .dropdown-item.active,
+.jh-navbar .dropdown-item.active:focus,
+.jh-navbar .dropdown-item.active:hover {
+    background-color: #353d47;
+}
+
+.jh-navbar .dropdown-toggle::after {
+    margin-left: 0.15em;
+}
+
+.jh-navbar ul.navbar-nav {
+    padding: 0.5em;
+}
+
+.jh-navbar .navbar-nav .nav-item {
+    margin-left: 1.5rem;
+}
+
+.jh-navbar a.nav-link {
+    font-weight: 400;
+}
+
+.jh-navbar .jh-navbar-toggler {
+    color: #ccc;
+    font-size: 1.5em;
+    padding: 10px;
+}
+
+.jh-navbar .jh-navbar-toggler:hover {
+    color: #fff;
+}
+
+@media screen and (min-width: 768px) {
+    .jh-navbar-toggler {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .jh-logo-container {
+        width: 100%;
+    }
+}
+
+.navbar-title {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* ==========================================================================
+Logo styles
+========================================================================== */
+.navbar-brand.logo {
+    padding: 5px 15px;
+}
+
+.logo-img {
+    height: 100%;
+    background: url('../../../content/images/package.png') no-repeat center center;
+    background-size: contain;
+    width: 100%;
+}
+
+.logo .logo-img {
+    height: 45px;
+    display: inline-block;
+    vertical-align: middle;
+    width: 70px;
+}
+
+/*******************************************************************************
+                             YELLOW CUSTOM MENU
+*******************************************************************************/
+* {
+    text-decoration: none;
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    outline: none;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+section {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0px auto;
+    display: table;
+    position: relative;
+}
+
+h1 {
+    margin: 0px auto;
+    display: table;
+    font-size: 26px;
+    padding: 40px 0px;
+    color: #002e5b;
+    text-align: center;
+}
+
+h1 span {
+    font-weight: 500;
+}
+
+header {
+    width: 100%;
+    display: table;
+    background-color: #fdc528;
+    margin-bottom: 0px;
+    box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
+}
+
+#logo {
+    float: left;
+    font-size: 24px;
+    text-transform: uppercase;
+    color: #002e5b;
+    font-weight: 600;
+    padding: 8px 0px;
+}
+
+nav {
+    width: auto;
+    float: right;
+}
+
+nav ul {
+    display: table;
+    float: right;
+}
+
+nav ul li {
+    float: left;
+}
+
+nav ul li:last-child {
+    padding-right: 0px;
+}
+
+nav ul li a {
+    color: #002e5b;
+    font-size: 18px;
+    min-width: 130px;
+    text-align: center;
+    display: inline-block;
+    transition: all 0.5s ease 0s;
+}
+
+nav ul li a:hover {
+    background-color: #002e5b;
+    color: #fdc528;
+    transition: all 0.5s ease 0s;
+}
+
+nav ul li a:hover i {
+    color: #fdc528;
+    transition: all 0.5s ease 0s;
+}
+
+nav ul li a i {
+    color: #002e5b;
+    transition: all 0.5s ease 0s;
+}
+
+.toggle-menu ul {
+    display: table;
+    width: 25px;
+}
+
+.toggle-menu ul li {
+    width: 100%;
+    height: 3px;
+    background-color: #002e5b;
+    margin-bottom: 4px;
+}
+
+.toggle-menu ul li:last-child {
+    margin-bottom: 0px;
+}
+
+input[type='checkbox'],
+label {
+    display: none;
+}
+
+.content {
+    display: table;
+    margin-bottom: 60px;
+    width: 900px;
+}
+
+.content h2 {
+    font-size: 18px;
+    font-weight: 500;
+    color: #002e5b;
+    border-bottom: 1px solid #fdc528;
+    display: table;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.content p {
+    font-size: 14px;
+    line-height: 22px;
+    color: #7c7c7c;
+    text-align: justify;
+}
+
+footer {
+    display: table;
+    padding-bottom: 30px;
+    width: 100%;
+}
+
+.social {
+    margin: 0px auto;
+    display: table;
+    display: table;
+}
+
+.social li {
+    float: left;
+    padding: 0px 10px;
+}
+
+.social li a {
+    color: #002e5b;
+    transition: all 0.5s ease 0s;
+}
+
+.social li a:hover {
+    color: #fdc528;
+    transition: all 0.5s ease 0s;
+}
+
+@media only screen and (max-width: 1440px) {
+    section {
+        max-width: 95%;
+    }
+}
+
+@media only screen and (max-width: 980px) {
+    header {
+        padding: 20px 0px;
+    }
+
+    #logo {
+        padding: 0px;
+    }
+
+    input[type='checkbox'] {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+        background: none;
+    }
+
+    input[type='checkbox']:fous {
+        background: none;
+    }
+
+    label {
+        float: right;
+        padding: 8px 0px;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    input[type='checkbox']:checked ~ nav {
+        display: block;
+    }
+
+    nav {
+        display: none;
+        position: absolute;
+        right: 0px;
+        top: 53px;
+        background-color: #002e5b;
+        padding: 0px;
+        z-index: 99;
+    }
+
+    nav ul {
+        width: auto;
+    }
+
+    nav ul li {
+        float: none;
+        padding: 0px;
+        width: 100%;
+        display: table;
+    }
+
+    nav ul li a {
+        color: #fff;
+        font-size: 15px;
+        padding: 10px 20px;
+        display: block;
+        border-bottom: 1px solid rgba(225, 225, 225, 0.1);
+    }
+
+    nav ul li a i {
+        color: #fdc528;
+        padding-right: 13px;
+    }
+}
+
+@media only screen and (max-width: 980px) {
+    .content {
+        width: 90%;
+    }
+}
+
+@media only screen and (max-width: 1048px) {
+    .navbar-title {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 980px) {
+    h1 {
+        padding: 25px 0px;
+    }
+
+    h1 span {
+        display: block;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    section {
+        max-width: 90%;
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    h1 {
+        font-size: 20px;
+    }
+
+    label {
+        padding: 5px 0px;
+    }
+
+    #logo {
+        font-size: 20px;
+    }
+
+    nav {
+        top: 47px;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    h1 {
+        padding: 20px 0px;
+    }
+}
+
+dl li,
+ol li,
+ul li {
+    line-height: 3;
+}
+
+li .nav-item.active.nav-link {
+    background-color: #002e5b;
+    color: #fdc528;
+    transition: all 0.5s ease 0s;
+}
+
+.active > .nav-link {
+    background-color: #002e5b;
+    color: #fdc528 !important;
+    transition: all 0.5s ease 0s;
+}
+
+.active > .nav-link > span > i {
+    background-color: #002e5b;
+    color: #fdc528 !important;
+    transition: all 0.5s ease 0s;
+}

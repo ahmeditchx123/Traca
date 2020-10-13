@@ -1,0 +1,91 @@
+<div class="card other-card">
+    <h2 id="page-heading">
+        <span><i class="mdi mdi-receipt icon-lg icon"></i>Run Sheets</span>
+        <button id="jh-create-entity" class="btn btn-outline-dark  float-right jh-create-entity create-run-sheet"
+                [routerLink]="['/run-sheet/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span>
+            Nouveau Run Sheet
+            </span>
+        </button>
+    </h2>
+    <br/>
+    <div class="table-responsive" *ngIf="runSheets">
+        <table class="table table-hover">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                <th jhiSortBy="id"><span>ID</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
+                <th jhiSortBy="code"><span>Code</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
+                <th><span>Nombre Colis</span></th>
+                <th jhiSortBy="creationDate"><span>Date Création</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
+                <th jhiSortBy="status"><span>Status</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
+                <th jhiSortBy="totalPrice"><span>Montant</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
+                <th jhiSortBy="deliveryManId"><span>Livreur</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let runSheet of runSheets ;trackBy: trackId">
+                <td><a [routerLink]="['/run-sheet', runSheet.id, 'view' ]">{{runSheet.id}}</a></td>
+                <td>{{runSheet.code}}</td>
+                <td>{{runSheet.deliveryPackages.length}}</td>
+                <td>{{runSheet.creationDate | date:'medium'}}</td>
+                <td>{{runSheet.status}}</td>
+                <td>{{runSheet.totalPrice}} DT</td>
+                <td>
+                    <div *ngIf="runSheet.deliveryManId">
+                        <a [routerLink]="['../delivery-man', runSheet.deliveryManId , 'view' ]">{{runSheet.deliveryMan.firstName}}
+                            {{runSheet.deliveryMan.lastName}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/run-sheet', runSheet.id, 'view' ]"
+                                class="btn btn-outline-light btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">Voir</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/run-sheet', runSheet.id, 'edit']"
+                                class="btn btn-outline-warning btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Éditer</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'run-sheet', { outlets: { popup: runSheet.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-outline-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Effacer</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="runSheets && runSheets.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5"
+                            [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5"
+                            [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

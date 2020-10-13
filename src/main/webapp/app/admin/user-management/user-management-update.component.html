@@ -1,0 +1,118 @@
+<div class="row card other-card">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="myUserLabel">
+                Ajouter ou modifier un Utilisateur
+            </h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!user.id">
+                    <label>ID</label>
+                    <input type="text" class="form-control" name="id"
+                        [(ngModel)]="user.id" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label">Login</label>
+                    <input type="text" class="form-control" name="login" #loginInput="ngModel"
+                        [(ngModel)]="user.login" required minlength="1" maxlength="50" pattern="^[_.@A-Za-z0-9-]*$">
+
+                    <div *ngIf="loginInput.dirty && loginInput.invalid">
+                        <small class="form-text text-danger"
+                        *ngIf="loginInput.errors.required">
+                            Ce champ est requis.
+                        </small>
+
+                        <small class="form-text text-danger"
+                        *ngIf="loginInput.errors.maxlength"
+                       >
+                            Ce champ ne peut pas dépasser 50 caractères.
+                        </small>
+
+                        <small class="form-text text-danger"
+                        *ngIf="loginInput.errors.pattern">
+                            Ce champ ne peut contenir que des lettres, des chiffres et des adresses électroniques.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label">Prénom</label>
+                    <input type="text" class="form-control" name="firstName" #firstNameInput="ngModel"
+                        [(ngModel)]="user.firstName" maxlength="50">
+
+                    <div *ngIf="firstNameInput.dirty && firstNameInput.invalid">
+                        <small class="form-text text-danger"
+                        *ngIf="firstNameInput.errors.maxlength"
+                       >
+                            Ce champ ne peut pas dépasser 50 caractères.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Nom</label>
+                    <input type="text" class="form-control" name="lastName" #lastNameInput="ngModel"
+                        [(ngModel)]="user.lastName" maxlength="50">
+
+                    <div *ngIf="lastNameInput.dirty && lastNameInput.invalid">
+                        <small class="form-text text-danger"
+                        *ngIf="lastNameInput.errors.maxlength"
+                       >
+                            Ce champ ne peut pas dépasser 50 caractères.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label">Email</label>
+                    <input type="email" class="form-control" name="email" #emailInput="ngModel"
+                        [(ngModel)]="user.email" minlength="5" required maxlength="254" email>
+
+                    <div *ngIf="emailInput.dirty && emailInput.invalid">
+                        <small class="form-text text-danger"
+                        *ngIf="emailInput.errors.required">
+                            Ce champ est requis.
+                        </small>
+
+                        <small class="form-text text-danger"
+                        *ngIf="emailInput.errors.maxlength"
+                       >
+                            Ce champ ne peut pas dépasser 100 caractères.
+                        </small>
+
+                        <small class="form-text text-danger"
+                        *ngIf="emailInput.errors.minlength"
+                       >
+                            Ce champ doit comporter au moins 5 caractères.
+                        </small>
+
+                        <small class="form-text text-danger"
+                        *ngIf="emailInput.errors.email">
+                            Votre email est invalide.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label" for="activated">
+                        <input class="form-check-input" [disabled]="user.id === null" type="checkbox" id="activated" name="activated" [(ngModel)]="user.activated">
+                        <span>Activé</span>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label>Profils</label>
+                    <select class="form-control" multiple name="authority" [(ngModel)]="user.authorities">
+                        <option *ngFor="let authority of authorities" [value]="authority">{{authority}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span
+                   >Annuler</span>
+                </button>
+                <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Enregistrer</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

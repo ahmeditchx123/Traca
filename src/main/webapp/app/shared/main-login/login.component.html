@@ -1,0 +1,201 @@
+<div class="row" style="
+      position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    height: 380px;
+    margin: auto;
+    width: 450px;
+    padding: 50px;
+    background-color: #fdc528;;
+    border-radius: 10px;">
+    <span class="logo-img .bounce-2"></span>
+
+    <div class="col-md-12">
+        <h2 style="font-size: 24px; text-align: center;
+    text-transform: uppercase;
+    color: #002e5b;
+    font-weight: 600;">EXPRESS Delivery</h2>
+        <form *ngIf="auth && !reset && !email" class="form" role="form" (ngSubmit)="login()">
+            <div class="form-group">
+                <label class="username-label" for="username" style="     color: #002e5b;
+    font-size: 18px;
+    margin-top: 10px;
+    font-weight: 500;
+    margin-bottom: 10px;">Nom d'utilisateur</label>
+                <input type="text" class="form-control" name="username" id="username" placeholder="Nom d'utilisateur"
+                       [(ngModel)]="username" style="    border: 1px solid #f2f2f2;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.75rem;
+    padding: 0.56rem 0.75rem;
+    line-height: 14px;
+    font-weight: 300;">
+            </div>
+            <div class="form-group">
+                <label for="password" style="     color: #002e5b;
+    font-size: 18px;
+    margin-top: 10px;
+    font-weight: 500;
+    margin-bottom: 10px;">Mot de passe</label>
+                <input type="password" class="form-control" name="password" id="password"
+                       placeholder="Mot de passe"
+                       [(ngModel)]="password" style="    border: 1px solid #f2f2f2;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.75rem;
+    padding: 0.56rem 0.75rem;
+    line-height: 14px;
+    font-weight: 300;">
+            </div>
+            <button type="submit" class="btn btn-primary" style="padding: 10px;
+    width: 100%;
+    margin-top: 20px;
+    background-color: #434a54;margin-bottom: 10px;">S'Authentifier
+            </button>
+                <a class="alert-link" (click)="resetForm()">Mot de passe oublié?</a>
+
+        </form>
+
+        <form *ngIf="!auth && !reset && email" name="form" role="form" (ngSubmit)="requestReset()" #resetRequestForm="ngForm">
+
+            <div class="alert-danger" style="background-color: transparent" *ngIf="errorEmailNotExists">
+                <strong>L'adresse email n'est pas enregistrée!</strong>
+            </div>
+
+            <div class="alert-warning" style="background-color: transparent" *ngIf="!success">
+                <p>Entrez l'adresse email que vous avez utilisée pour vous inscrire.</p>
+            </div>
+
+            <div class="alert-success" style="background-color: transparent" *ngIf="success">
+                <p><strong>Email de réinitialisation envoyé.</strong></p>
+                <p>Consultez vos courriels pour savoir comment réinitialiser votre mot de passe.</p>
+            </div>
+
+            <div class="form-group">
+                <label class="form-control-label" for="email" style="     color: #002e5b;
+    font-size: 18px;
+    margin-top: 10px;
+    font-weight: 500;
+    margin-bottom: 10px;">Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Votre adresse email ici"
+                       [(ngModel)]="resetAccount.email" minlength=5 maxlength=254 #emailInput="ngModel" email required>
+                <div *ngIf="emailInput.dirty && emailInput.invalid">
+                    <small class="form-text text-danger"
+                           *ngIf="emailInput.errors.required">
+                        Le champ email est obligatoire.
+                    </small>
+                    <small class="form-text text-danger"
+                           *ngIf="emailInput.errors.email">
+                        Le champ email est invalide.
+                    </small>
+                    <small class="form-text text-danger"
+                           *ngIf="emailInput.errors.minlength">
+                        Le champ email doit avoir au moins 5 characteres.
+                    </small>
+                    <small class="form-text text-danger"
+                           *ngIf="emailInput.errors.maxlength">
+                        Le champ email ne peut pas contenir plus que100 characteres.
+                    </small>
+                </div>
+            </div>
+            <button type="submit" [disabled]="resetRequestForm.form.invalid || success" class="btn btn-primary" >Réinitialiser</button>
+            <button type="submit" (click)="back()" class="btn btn-default">Annuler</button>
+        </form>
+
+
+        <div *ngIf="!auth && reset && !email">
+
+            <div class="alert-danger" style="background-color: transparent" *ngIf="keyMissing">
+                <strong>La clé de réinitialisation du mot de passe est manquante.</strong>
+            </div>
+
+            <div class="alert-danger" style="background-color: transparent" *ngIf="error">
+                <p>Une demande de mot de passe n'est valide que pour 24 heures.</p>
+            </div>
+
+            <p class="alert-resetSuccess" style="background-color: transparent" *ngIf="resetSuccess">
+                <span><strong>Votre mot de passe a été réinitialisé.</strong> </span>
+                <a class="alert-link" (click)="back()">Login</a>.
+            </p>
+
+            <div class="alert-danger" style="background-color: transparent" *ngIf="doNotMatch">
+                Le mot de passe et sa confirmation ne correspondent pas!
+            </div>
+
+            <div *ngIf="!keyMissing">
+                <form *ngIf="!resetSuccess" name="form" role="form" (ngSubmit)="finishReset()" #passwordForm="ngForm">
+                    <div class="form-group">
+                        <label style="     color: #002e5b;
+    font-size: 18px;
+    margin-top: 10px;
+    font-weight: 500;
+    margin-bottom: 10px;" class="form-control-label" for="password">Nouveau mot de passe</label>
+                        <input type="password" class="form-control" id="password" name="password" #passwordInput="ngModel"
+                               placeholder="Nouveau mot de passe"
+                               [(ngModel)]="resetAccount.password" minlength=4 maxlength=50 required>
+                        <div *ngIf="passwordInput.dirty && passwordInput.invalid">
+                            <small class="form-text text-danger"
+                                   *ngIf="passwordInput.errors.required">
+                                Votre mot de passe est requis.
+                            </small>
+                            <small class="form-text text-danger"
+                                   *ngIf="passwordInput.errors.minlength">
+                                Votre mot de passe doit comporter au moins 4 caractères.
+                            </small>
+                            <small class="form-text text-danger"
+                                   *ngIf="passwordInput.errors.maxlength">
+                                Votre mot de passe ne peut pas dépasser 50 caractères.
+                            </small>
+                        </div>
+                        <jhi-password-strength-bar [passwordToCheck]="resetAccount.password"></jhi-password-strength-bar>
+                    </div>
+
+                    <div class="form-group">
+                        <label style="     color: #002e5b;
+    font-size: 18px;
+    margin-top: 10px;
+    font-weight: 500;
+    margin-bottom: 10px;" class="form-control-label" for="confirmPassword">Confirmation</label>
+                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" #confirmPasswordInput="ngModel"
+                               placeholder="Confirm the Nouveau mot de passe"
+                               [(ngModel)]="confirmPassword" minlength=4 maxlength=50 required>
+                        <div *ngIf="confirmPasswordInput.dirty && confirmPasswordInput.invalid">
+                            <small class="form-text text-danger"
+                                   *ngIf="confirmPasswordInput.errors.required">
+                                Votre confirmation de mot de passe est requise.
+                            </small>
+                            <small class="form-text text-danger"
+                                   *ngIf="confirmPasswordInput.errors.minlength">
+                                Votre confirmation de mot de passe doit comporter au moins 4 caractères.
+                            </small>
+                            <small class="form-text text-danger"
+                                   *ngIf="confirmPasswordInput.errors.maxlength">
+                                Votre confirmation de mot de passe ne peut pas dépasser 50 caractères.
+                            </small>
+                        </div>
+                    </div>
+                    <button type="submit" [disabled]="passwordForm.form.invalid" class="btn btn-primary">Modifier mot de passe</button>
+                    <button type="submit" (click)="back()" class="btn btn-default">Annuler</button>
+                </form>
+            </div>
+
+        </div>
+
+
+    </div>
+    <div class="col-md-12" style="margin-top: 80px;">
+        <div class="alert alert-danger" *ngIf="authenticationError">
+            <strong>Probléme d'authentification !</strong> Veuillez vérifier vos informations d'identification et réessayer.
+        </div>
+    </div>
+</div>
+<div class="animation animation-1">
+    <div class="ball"></div>
+</div>
+<div class="animation animation-2">
+    <div class="ball"></div>
+</div>
+<div class="animation animation-3">
+    <div class="ball"></div>
+</div>

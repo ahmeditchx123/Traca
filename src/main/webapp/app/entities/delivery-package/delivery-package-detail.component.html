@@ -1,0 +1,120 @@
+<div class="row card other-card">
+    <div class="col-12">
+        <div *ngIf="deliveryPackage">
+            <h2 class="header-page"><i class="mdi mdi-cube icon-lg icon"></i><span>Colis</span> {{deliveryPackage.id}}</h2>
+            <button style="margin-top: -5%;" id="jh-create-entity" (click)="getPDF(deliveryPackage)"  class="btn btn-outline-danger float-right jh-create-entity create-delivery-package">
+                <fa-icon [icon]="faFilePdf"></fa-icon>
+                <span >
+            Voir bon
+            </span>
+            </button>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-12">
+
+                        <h5>Details</h5>
+                        <hr>
+                        <dt><span>Code</span></dt>
+                        <dd>
+                            <span>{{deliveryPackage.code}}</span>
+                        </dd>
+                        <dt><span>Status</span></dt>
+                        <dd>
+                            <span>{{deliveryPackage.status}}</span>
+                        </dd>
+                        <dt><span>Montant</span></dt>
+                        <dd>
+                            <span>{{deliveryPackage.price}}</span>
+                        </dd>
+                        <dt><span>Date Création</span></dt>
+                        <dd>
+                            <span>{{deliveryPackage.creationDate}}</span>
+                        </dd>
+                        <dt><span>Hauteur</span></dt>
+                        <dd>
+                            <span>{{deliveryPackage.height}}</span>
+                        </dd>
+                        <dt><span>Largeur</span></dt>
+                        <dd>
+                            <span>{{deliveryPackage.width}}</span>
+                        </dd>
+                        <dt><span>Poid</span></dt>
+                        <dd>
+                            <span>{{deliveryPackage.weight}}</span>
+                        </dd>
+                        <dt><span>Fragilité</span></dt>
+                        <dd>
+                            <span>{{deliveryPackage.fragility}}</span>
+                        </dd>
+                        <br>
+                        <h5 *ngIf="view">Client</h5>
+                        <hr *ngIf="view">
+                        <dt *ngIf="view"><span>Nom Complet</span></dt>
+                        <dd *ngIf="view">
+                            <div *ngIf="deliveryPackage.shipperId">
+                                <a [routerLink]="['/shipper', deliveryPackage.shipperId, 'view']">{{deliveryPackage.shipper.firstName}} {{deliveryPackage.shipper.lastName}}</a>
+                            </div>
+                        </dd>
+                        <dt *ngIf="view"><span>Run Sheet</span></dt>
+                        <dd *ngIf="view">
+                            <div *ngIf="deliveryPackage.runSheetId">
+                                <a [routerLink]="['/run-sheet', deliveryPackage.runSheetId, 'view']">{{deliveryPackage.runSheet?.code}}</a>
+                            </div>
+                        </dd>
+                        <br>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <h5>Destinataire</h5>
+                        <hr>
+                        <dt><span>Destinataire Prénom</span></dt>
+                        <dd>
+                            <span>{{deliveryPackage.receiverFirstName}}</span>
+                        </dd>
+                        <dt><span>Destinataire Nom</span></dt>
+                        <dd>
+                            <span>{{deliveryPackage.receiverLastName}}</span>
+                        </dd>
+                        <dt><span>Destinataire Téléphone</span></dt>
+                        <dd>
+                            <span>{{deliveryPackage.receiverPhone}}</span>
+                        </dd>
+                        <br>
+                        <h5>Adresse</h5>
+                        <hr>
+                        <dt><span>Ligne 1</span></dt>
+                        <dd>
+                            <span>{{deliveryPackage.address.line1}}</span>
+                        </dd>
+                        <dt><span>Ligne 2</span></dt>
+                        <dd>
+                            <span>{{deliveryPackage.address.line2}}</span>
+                        </dd>
+                        <dt><span>City</span></dt>
+                        <dd>
+                            <span>{{deliveryPackage.address.city}}</span>
+                        </dd>
+                        <dt><span>Code postale</span></dt>
+                        <dd>
+                            <span>{{deliveryPackage.address.postalCode}}</span>
+                        </dd>
+                    </div>
+                </div>
+            </dl>
+
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-outline-secondary">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Retour</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/delivery-package', deliveryPackage.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Éditer</span>
+            </button>
+        </div>
+    </div>
+</div>

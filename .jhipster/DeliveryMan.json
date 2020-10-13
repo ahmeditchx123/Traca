@@ -1,0 +1,59 @@
+{
+    "name": "DeliveryMan",
+    "fields": [
+        {
+            "fieldName": "code",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "firstName",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "lastName",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "firstPhone",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "secondPhone",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "hireDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "creationDate",
+            "fieldType": "Instant"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "runSheet",
+            "otherEntityName": "runSheet",
+            "otherEntityRelationshipName": "deliveryMan"
+        }
+    ],
+    "changelogDate": "20190217163207",
+    "entityTableName": "delivery_man",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

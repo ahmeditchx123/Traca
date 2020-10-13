@@ -1,0 +1,53 @@
+<div class="row card other-card">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-transition-history-heading">Ajouter ou modifier Transition History</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!transitionHistory.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="transitionHistory.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_transitionDate">Transition Date</label>
+                    <div class="d-flex">
+                        <input id="field_transitionDate" type="datetime-local" class="form-control" name="transitionDate" [(ngModel)]="transitionDate" placeholder="YYYY-MM-DD HH:mm"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_fromStatus">From Status</label>
+                    <select class="form-control" name="fromStatus" [(ngModel)]="transitionHistory.fromStatus" id="field_fromStatus" >
+                        <option value="NEW">NEW</option>
+                        <option value="TO_DELIVER">TO_DELIVER</option>
+                        <option value="PICKED">PICKED</option>
+                        <option value="DELIVERED">DELIVERED</option>
+                        <option value="REFUSED">REFUSED</option>
+                        <option value="NA">NA</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_toStatus">To Status</label>
+                    <select class="form-control" name="toStatus" [(ngModel)]="transitionHistory.toStatus" id="field_toStatus" >
+                        <option value="NEW">NEW</option>
+                        <option value="TO_DELIVER">TO_DELIVER</option>
+                        <option value="PICKED">PICKED</option>
+                        <option value="DELIVERED">DELIVERED</option>
+                        <option value="REFUSED">REFUSED</option>
+                        <option value="NA">NA</option>
+                    </select>
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Annuler</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Enregistrer</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

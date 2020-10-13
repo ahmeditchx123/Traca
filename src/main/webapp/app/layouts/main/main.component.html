@@ -1,0 +1,47 @@
+<jhi-page-ribbon></jhi-page-ribbon>
+
+
+<div *ngIf="!isAuthenticated()" style="height: 100vh;background-color: #687086;">
+
+
+    <jhi-main-login-modal></jhi-main-login-modal>
+
+</div>
+
+
+<div *ngIf="isAuthenticated()">
+    <div  *ngIf="isAdminConnected" >
+        <router-outlet name="navbar"></router-outlet>
+    </div>
+
+
+    <div *ngIf="isAdminConnected" class="container-fluid">
+        <div class="default-card jh-card">
+            <div class="row">
+                    <div class="col-md-3">
+                        <router-outlet name="sidebar"></router-outlet>
+                    </div>
+                <div class="col-md-9" style="margin-bottom: 50px;">
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+            <router-outlet name="popup"></router-outlet>
+        </div>
+        <jhi-footer></jhi-footer>
+    </div>
+
+    <div *ngIf="!isAdminConnected" class="container-fluid">
+        <div class="default-card jh-card">
+            <div class="row">
+                <div class="col-md-3">
+                    <jhi-client-sidebar></jhi-client-sidebar>
+                </div>
+                <div class="col-md-9" style="margin-bottom: 50px;">
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+            <router-outlet name="popup"></router-outlet>
+        </div>
+        <jhi-footer></jhi-footer>
+    </div>
+</div>

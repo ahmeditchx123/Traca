@@ -1,0 +1,36 @@
+<div class="modal-header">
+    <h4 class="modal-title">Document</h4>
+    <button style="float: right"  data-dismiss="modal" class="close" type="button" (click)="print()"><span
+        aria-hidden="true">Imprimer</span>
+    </button>
+    <button aria-label="Close" data-dismiss="modal" class="close" type="button" (click)="dismiss('closed')"><span
+        aria-hidden="true">x</span>
+    </button>
+</div>
+<div class="modal-body">
+
+    <div class="row card other-card" style="display: flex; flex-direction: column; align-items: center;">
+
+        <div class="form-group">
+            <div class="row" *ngIf="pdfSrc != ''">
+                <fa-icon style="margin: 7px 0 7px 0;" class="col-md-3" [icon]="leftArrowIcon"
+                         (click)="goToPreviousPage()"></fa-icon>
+                <input class="form-control col-md-6" type="text" [(ngModel)]="paginator" id="page" [max]="totalPages"
+                       (change)="handleInputChange($event)">
+                <fa-icon style="margin: 7px 0 7px 0;" class="col-md-3" [icon]="rightArrowIcon"
+                         (click)="goToNextPage()"></fa-icon>
+
+            </div>
+        </div>
+        <div>
+            <pdf-viewer [src]="pdfSrc"
+                        [render-text]="true"
+                        [page]="page"
+                        [show-all]="false"
+                        (after-load-complete)="handleLoadCompleted($event)"
+            >
+            </pdf-viewer>
+        </div>
+    </div>
+</div>
+

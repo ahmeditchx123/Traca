@@ -1,0 +1,72 @@
+<div class="row card other-card">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-address-heading">Ajouter ou modifier Adresse</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!address.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="address.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_line1">Ligne 1</label>
+                    <input type="text" class="form-control" name="line1" id="field_line1"
+                        [(ngModel)]="address.line1" required/>
+                    <div [hidden]="!(editForm.controls.line1?.dirty && editForm.controls.line1?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.line1?.errors?.required">
+                            Ce champ est requis.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_line2">Ligne 2</label>
+                    <input type="text" class="form-control" name="line2" id="field_line2"
+                        [(ngModel)]="address.line2" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_city">Cité</label>
+                    <input type="text" class="form-control" name="city" id="field_city"
+                        [(ngModel)]="address.city" required/>
+                    <div [hidden]="!(editForm.controls.city?.dirty && editForm.controls.city?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.city?.errors?.required">
+                            Ce champ est requis.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_postalCode">Code postale</label>
+                    <input type="text" class="form-control" name="postalCode" id="field_postalCode"
+                        [(ngModel)]="address.postalCode" required/>
+                    <div [hidden]="!(editForm.controls.postalCode?.dirty && editForm.controls.postalCode?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.postalCode?.errors?.required">
+                            Ce champ est requis.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_lat">Lat</label>
+                    <input type="number" class="form-control" name="lat" id="field_lat"
+                        [(ngModel)]="address.lat" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_lon">Lon</label>
+                    <input type="number" class="form-control" name="lon" id="field_lon"
+                        [(ngModel)]="address.lon" />
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Annuler</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Enregistrer</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

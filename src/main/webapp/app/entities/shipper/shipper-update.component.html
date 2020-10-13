@@ -1,0 +1,235 @@
+<div class="row card other-card">
+    <div class="col-12">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save(editForm.form)" #editForm="ngForm">
+
+            <h2 id="jhi-shipper-heading" class="header-page"><i class="mdi mdi-face icon-lg icon"></i>Ajouter ou modifier Client
+            </h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="row">
+
+                    <div class="col-lg-6 col-md-12">
+
+                        <h5>Detaille Client</h5>
+                        <hr>
+                        <div class="form-group" [hidden]="!shipper.id">
+                            <label for="id">ID</label>
+                            <input type="text" class="form-control" id="id" name="id"
+                                   [(ngModel)]="shipper.id" readonly />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Nom</label>
+                            <input type="text" class="form-control" name="lastName" #lastNameInput="ngModel"
+                                   [(ngModel)]="shipper.lastName" required minlength="3" maxlength="20">
+                            <div *ngIf="lastNameInput.invalid && (lastNameInput.dirty || lastNameInput.touched)"
+                                 class="form-text text-danger">
+
+                                <div *ngIf="lastNameInput.errors?.required">
+                                    Le champs nom est obligatoire
+                                </div>
+                                <div *ngIf="lastNameInput.errors?.minlength">
+                                    Le champs nom doit contenir au moins 3 caractères
+                                </div>
+                                <div *ngIf="lastNameInput.errors?.maxlength">
+                                    Le champs nom ne doit pas contenir plus que 20 caractères
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label">Prénom</label>
+                            <input type="text" class="form-control" name="firstName" #firstNameInput="ngModel"
+                                   [(ngModel)]="shipper.firstName" required minlength="3" maxlength="20">
+                            <div *ngIf="firstNameInput.invalid && (firstNameInput.dirty || firstNameInput.touched)"
+                                 class="form-text text-danger">
+
+                                <div *ngIf="firstNameInput.errors?.required">
+                                    Le champs prénom est obligatoire
+                                </div>
+                                <div *ngIf="firstNameInput.errors?.minlength">
+                                    Le champs prénom doit contenir au moins 3 caractères
+                                </div>
+                                <div *ngIf="firstNameInput.errors?.maxlength">
+                                    Le champs prénom ne doit pas contenir plus que 20 caractères
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <h5>Sécurité</h5>
+                        <hr>
+                        <div class="form-group">
+                            <label class="form-control-label">Login</label>
+                            <input type="text" class="form-control" name="login" #loginInput="ngModel"
+                                   [(ngModel)]="shipper.login" required minlength="3" maxlength="20"
+                                 >
+                            <div *ngIf="loginInput.invalid && (loginInput.dirty || loginInput.touched)"
+                                 class="form-text text-danger">
+
+                                <div *ngIf="loginInput.errors?.required">
+                                    Le champs login est obligatoire
+                                </div>
+                                <div *ngIf="loginInput.errors?.minlength">
+                                    Le champs login doit contenir au moins 3 caractères
+                                </div>
+                                <div *ngIf="loginInput.errors?.maxlength">
+                                    Le champs login ne doit pas contenir plus que 20 caractères
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label">Email</label>
+                            <input type="email" class="form-control" name="email" #emailInput="ngModel"
+                                   [(ngModel)]="shipper.email" minlength="5" required  email>
+                            <div *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)"
+                                 class="form-text text-danger">
+                                <div *ngIf="emailInput.errors?.required">
+                                    Le champs email est obligatoire
+                                </div>
+                                <div *ngIf="emailInput.errors?.email">
+                                    Veuillez saisir un email valide
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group" *ngIf="!shipper.id">
+                            <label class="form-control-label">Mot de passe</label>
+                            <input type="password" class="form-control" name="mot-de-passe" #passwordInput="ngModel"
+                                   [(ngModel)]="shipper.password" required minlength="3" maxlength="20"
+                                >
+                            <div *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)"
+                                 class="form-text text-danger">
+                                <div *ngIf="passwordInput.errors?.required">
+                                    Le champs mot de passe est obligatoire
+                                </div>
+                                <div *ngIf="passwordInput.errors?.minlength">
+                                    Le champs mot de passe doit contenir au moins 3 caractères
+                                </div>
+                                <div *ngIf="passwordInput.errors?.maxlength">
+                                    Le champs mot de passe ne doit pas contenir plus que 20 caractères
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-6 col-md-12">
+                        <h5>Adresse</h5>
+                        <hr>
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_line1">Ligne 1</label>
+                            <input type="text" class="form-control" name="line1" id="field_line1"
+                                   [(ngModel)]="shipper.address.line1" required/>
+                            <div [hidden]="!(editForm.controls.line1?.dirty && editForm.controls.line1?.invalid)">
+                                <small class="form-text text-danger"
+                                       [hidden]="!editForm.controls.line1?.errors?.required">
+                                    Ce champ est requis.
+                                </small>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_line2">Ligne 2</label>
+                            <input type="text" class="form-control" name="line2" id="field_line2"
+                                   [(ngModel)]="shipper.address.line2"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_city">Cité</label>
+                            <input type="text" class="form-control" name="city" id="field_city"
+                                   [(ngModel)]="shipper.address.city" #city="ngModel" required minlength="3" maxlength="20"/>
+                            <div *ngIf="city.invalid && (city.dirty || city.touched)"
+                                 class="form-text text-danger">
+                                <div *ngIf="city.errors?.required">
+                                    Le champs cité est obligatoire
+                                </div>
+                                <div *ngIf="city.errors?.minlength">
+                                    Le champs cité doit contenir au moins 3 caractères
+                                </div>
+                                <div *ngIf="city.errors?.maxlength">
+                                    Le champs cité ne doit pas contenir plus que 20 caractères
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_postalCode">Code postale</label>
+                            <input type="number" class="form-control" name="postalCode" id="field_postalCode"
+                                   [(ngModel)]="shipper.address.postalCode" #postalCode="ngModel" required [range]="[1000, 9000]" digits [pattern]="pattern"/>
+                            <div *ngIf="postalCode.invalid && (postalCode.dirty || postalCode.touched)"
+                                 class="form-text text-danger">
+
+                                <div *ngIf="postalCode.errors?.required">
+                                    Le champs code postal est obligatoire
+                                </div>
+                                <div *ngIf="postalCode.errors?.range">
+                                    Le champs code postale doit etre entre 1000 et 9000
+                                </div>
+
+                                <div *ngIf="postalCode.errors?.pattern">
+                                </div>
+
+                                <div *ngIf="postalCode.errors?.digits">
+                                    Veuilez saisir un code postal valide entre 1000 et 9000
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <h5>Contact</h5>
+                        <hr>
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_firstPhone">Tel 1</label>
+                            <input type="number" class="form-control" name="firstPhone" id="field_firstPhone"
+                                   [(ngModel)]="shipper.firstPhone" #firstPhone="ngModel" [range]="[20000000, 99999999]" [pattern]="pattern" />
+                            <div *ngIf="firstPhone.invalid && (firstPhone.dirty || firstPhone.touched)"
+                                 class="form-text text-danger">
+                                <div *ngIf="firstPhone.errors?.range">
+                                    Merci de vérifier le format de numéro de téléphone saisie
+                                </div>
+
+                                <div *ngIf="firstPhone.errors?.pattern">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_secondPhone">Tel 2</label>
+                            <input type="number" class="form-control" name="secondPhone" id="field_secondPhone"
+                                   [(ngModel)]="shipper.secondPhone" #secondPhone="ngModel" [range]="[20000000, 99999999]" [pattern]="pattern"/>
+                            <div *ngIf="secondPhone.invalid && (secondPhone.dirty || secondPhone.touched)"
+                                 class="form-text text-danger">
+                                <div *ngIf="secondPhone.errors?.range">
+                                    Merci de vérifier le format de numéro de téléphone saisie
+                                </div>
+
+                                <div *ngIf="secondPhone.errors?.pattern">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+
+
+                <div>
+                    <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                        <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Annuler</span>
+                    </button>
+                    <button type="submit" id="save-entity" [disabled]="editForm.form.invalid"
+                            class="btn btn-primary">
+                        <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Enregistrer</span>
+                    </button>
+                </div>
+        </form>
+    </div>
+</div>

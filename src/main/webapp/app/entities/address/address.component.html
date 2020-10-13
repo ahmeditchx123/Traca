@@ -1,0 +1,72 @@
+<div>
+    <h2 id="page-heading">
+        <span>Addresses</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-address" [routerLink]="['/address/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Nouveau Address
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="addresses">
+        <table class="table table-hover">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="line1"><span>Ligne 1</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="line2"><span>Ligne 2</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="city"><span>Cité</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="postalCode"><span>Code postale</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="lat"><span>Lat</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="lon"><span>Lon</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let address of addresses ;trackBy: trackId">
+                <td><a [routerLink]="['/address', address.id, 'view' ]">{{address.id}}</a></td>
+                <td>{{address.line1}}</td>
+                <td>{{address.line2}}</td>
+                <td>{{address.city}}</td>
+                <td>{{address.postalCode}}</td>
+                <td>{{address.lat}}</td>
+                <td>{{address.lon}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/address', address.id, 'view' ]"
+                                class="btn btn-outline-primary btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">Voir</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/address', address.id, 'edit']"
+                                class="btn btn-outline-warning btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Editer</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'address', { outlets: { popup: address.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-outline-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Effacer</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="addresses && addresses.length">
+        <div class="row card other-card">
+            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row card other-card">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

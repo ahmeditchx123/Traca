@@ -1,0 +1,100 @@
+<div class="row card other-card">
+    <div class="col-12">
+        <div *ngIf="shipper">
+            <h2 class="header-page"><i class="mdi mdi-face icon-lg icon"></i><span>Client</span> {{shipper.firstName}}</h2>
+            <jhi-alert-error></jhi-alert-error>
+
+            <div class="row">
+                <div class="col-md-12 col-lg-6">
+                    <dl class="row-md jh-entity-details">
+                        <h5>Detaille</h5>
+                        <hr>
+
+                        <dt><span>Nom</span></dt>
+                        <dd>{{shipper.lastName}}</dd>
+                        <dt><span>Prénom</span></dt>
+                        <dd>{{shipper.firstName}}</dd>
+
+                        <dt><span>Créé par</span></dt>
+                        <dd>{{shipper.createdBy}}</dd>
+                        <dt><span>Création Date</span></dt>
+                        <dd>{{shipper.createdDate | date:'dd/MM/yy HH:mm' }}</dd>
+                        <dt><span>Dernière Modification par</span></dt>
+                        <dd>{{shipper.lastModifiedBy}}</dd>
+                        <dt><span>Date de Dernière Modification</span></dt>
+                        <dd>{{shipper.lastModifiedDate | date:'dd/MM/yy HH:mm'}}</dd>
+                        <br>
+
+                        <h5>Sécurité</h5>
+                        <hr>
+                        <dt><span>Email</span></dt>
+
+                        <dd>{{shipper.email}}</dd>
+                        <dt><span>Login</span></dt>
+                        <dd>
+                            <span>{{shipper.login}}</span>
+                            <jhi-boolean
+                                [value]="shipper.activated"
+                                textTrue="Activated"
+                                textFalse="Deactivated">
+                            </jhi-boolean>
+                        </dd>
+                        <dt><span>Profiles</span></dt>
+                        <dd>
+                            <ul class="list-unstyled">
+                                <li *ngFor="let authority of shipper.authorities">
+                                    <span class="badge badge-info">{{authority}}</span>
+                                </li>
+                            </ul>
+                        </dd>
+                        <br>
+                    </dl>
+                </div>
+                <div class="col-md-12 col-lg-6">
+                    <h5>Adresse</h5>
+                    <hr>
+                    <dt><span>Ligne 1</span></dt>
+                    <dd>
+                        <span>{{shipper.address.line1}}</span>
+                    </dd>
+                    <dt><span>Ligne 2</span></dt>
+                    <dd>
+                        <span>{{shipper.address.line2}}</span>
+                    </dd>
+                    <dt><span>Cité</span></dt>
+                    <dd>
+                        <span>{{shipper.address.city}}</span>
+                    </dd>
+                    <dt><span>Code postale</span></dt>
+                    <dd>
+                        <span>{{shipper.address.postalCode}}</span>
+                    </dd>
+                    <br>
+                    <h5>Contact</h5>
+                    <hr>
+                    <dt><span>Tel 1</span></dt>
+                    <dd>
+                        <span>{{shipper.firstPhone}}</span>
+                    </dd>
+                    <dt><span>Tel 2</span></dt>
+                    <dd>
+                        <span>{{shipper.secondPhone}}</span>
+                    </dd>
+                </div>
+            </div>
+
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-outline-secondary">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Retour</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/shipper', shipper.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Éditer</span>
+            </button>
+        </div>
+    </div>
+</div>
